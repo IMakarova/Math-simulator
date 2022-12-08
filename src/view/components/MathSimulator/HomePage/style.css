@@ -1,0 +1,9 @@
+#home{
+    margin-left: 20px;
+    height: 36px;
+}
+#home:hover{
+    -webkit-filter: drop-shadow(2px 2px 0px rgba(255, 255, 255, 0.5));
+    filter: drop-shadow(2px 2px 0px rgba(255, 255, 255, 0.5));
+    cursor: var(--link-cursor);
+}

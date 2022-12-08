@@ -1,0 +1,7 @@
+#quiz-container > #timer.hidden{
+    display: none;
+    /* margin: 0px; */
+}
+#timer{
+    margin: 10px 0;
+}

@@ -1,0 +1,37 @@
+#operation-container #quiz-container{
+    margin-top: 0px;
+}
+#quiz-container button{
+    align-self: start;
+    height: 20px;
+}
+#skip{
+    margin-left: 10px;
+}
+#quiz-container #login{
+    position: relative;
+    right: 0px;
+    margin-left: 20px;
+}
+#quiz-end p{
+padding: 0px;
+margin-top: 20px;
+}
+#quiz-end div{
+    padding: 0px;
+    }
+#quiz-end button, .last{
+    margin-top: 20px;
+    }
+    #operation-container > .start-page{
+        display: flex;
+        flex-direction: column;
+    }
+    .start-page button{
+        margin-top: 20px;
+        margin-left: 20px;
+        text-align: center;
+    }
+#best{
+    margin-top: 10px;
+}

@@ -1,0 +1,65 @@
+.login-modal{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    /* margin: 0; */
+    /* padding: 0; */
+    background-color: rgba(25, 54, 40, 0.5);
+    z-index: 2;
+    align-self:flex-start;
+    }
+    .login-modal #modal-window{
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        background-color: white;
+        width: 200px;
+        height: 100px;
+        /* display: flex; */
+        /* flex-direction: column; */
+        /* padding: 0px; */
+    }
+    .login-modal #modal-form{
+        display: flex;
+        flex-direction: column; 
+        justify-content: start;
+        height: 50px;
+        padding: 10px 0 0 20px;
+        /* width: 180px; */
+        /* height: 65px; */
+    }
+    .login-modal form{
+        display: flex;
+        flex-direction: column; 
+    }
+    label {
+        /* padding: 0px; */
+        margin-bottom: 10px;
+        font-size: 0.9em;
+    }
+    .login-modal input{
+        margin: 0;
+        width: 150px;
+    }
+    .login-modal button{
+    align-self: center;
+    margin-top: 10px;
+    }
+    .empty-username, .empty-username:focus{
+        border: 2px solid var(--wrong-color);
+        border-radius: 3px;
+    }
+    #close{
+        position: absolute;
+        top: -14px;
+        right: -14px;
+        margin: 0px;
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        padding: 0px;
+        border-radius: 14px;
+        border: 0px;
+        font-size: 1em;
+    }

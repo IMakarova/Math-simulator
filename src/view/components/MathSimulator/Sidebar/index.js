@@ -1,13 +1,37 @@
-import React, { Component } from 'react';
-import { add, sub, mul, div, mixedOperation } from '../Operations'
+import React, { PureComponent } from 'react';
+import { add, sub, mul, div, mixedOperation } from '../Operations';
+import './style.css'
 
-class Sidebar extends Component {
+class Sidebar extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      props,
+    }
   }
+//   allStorage = () => {
+//     let result = [];
+//     // let keys = [];
+//     let values = [];
+//     let keys = Object.keys(localStorage);
+//     let i = keys.length;
+// // console.log(keys)
+//     while ( i-- ) {
+//         values.unshift( localStorage.getItem(keys[i]) );
+//         // keys.push(localStorage.key[i - 1])
+//     }
+// result.push(keys);
+// result.push(values);
+//     return result;
+// }
+  // const myLocalStorage = allStorage();
+  // this.setState({ storage: allStorage() })
+  // console.log(myLocalStorage, this.state);
+
   sidebarClick = (e) => {
     const buttonElement = e.target.closest('.sideBarButton');
         if (!buttonElement) return;
+        this.props.switchIsTable(false);
         this.props.changeButton('check');
         this.props.switchReadOnly(false);
         this.props.switchIsQuiz(false);
@@ -33,29 +57,30 @@ class Sidebar extends Component {
             arr = add();
 
             this.props.changeArr(arr);
-            // this.props.changeSign('+');
         }
         if (buttonElement.classList.contains('substraction')) {
           arr = sub();
           this.props.changeArr(arr);
-          // this.props.changeSign('-');
-          // console.log(this.props.state.arr)
         }
         if (buttonElement.classList.contains('multiplication')) {
           arr = mul();
           this.props.changeArr(arr);
-          // this.props.changeSign('*');
         }
         if (buttonElement.classList.contains('division')) {
           arr = div();
           this.props.changeArr(arr);
-          // this.props.changeSign('/');
         }
         if (buttonElement.classList.contains('quiz')) {
-          // arr = mixedOperation();
           this.props.switchIsQuiz(true);
           this.props.changeArr(mixedOperation());
           console.log(this.props.state.arr);
+        }
+        if (buttonElement.classList.contains('results-table')) {
+          this.props.switchIsOperation(false);
+          this.props.switchIsTable(true);
+          // this.props.changeStorage(this.allStorage());
+          // console.log(this.props.state.storage, localStorage.length);
+          // console.log(this.props.state.isTable);
         }
         console.log(arr);
     }
@@ -70,6 +95,7 @@ class Sidebar extends Component {
             <li className="sideBarButton multiplication">Multiplication</li>
             <li className="sideBarButton division">Division</li>
             <li className="sideBarButton quiz">Quiz</li>
+            <li className="sideBarButton results-table">Best results</li>
         </ul>
     </div>
   )

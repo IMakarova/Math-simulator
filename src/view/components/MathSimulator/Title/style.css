@@ -1,0 +1,12 @@
+h1{
+    font-size: 1.4em;
+    font-weight: normal;
+}
+h1{
+    position: absolute;
+    margin-left: 76px;
+}
+.link:hover{
+    text-shadow: 2px 2px rgba(255, 255, 255, 0.5);
+    cursor: var(--link-cursor);
+}

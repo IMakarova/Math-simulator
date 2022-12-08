@@ -1,25 +1,18 @@
-import React, { Component } from 'react';
-import home from '../../../../assets/png/blackHome.png'
+import React, { PureComponent } from 'react';
+import home from '../../../../assets/png/blackHome.png';
+import './style.css';
 
-class HomePage extends Component {
+class HomePage extends PureComponent {
   constructor(props) {
     super(props);
-
-}
-    homeClick = (e) => {
-    this.props.switchIsText(true);
-    this.props.switchIsOperation(false);
-    this.props.changeHeader('How to start?');
-    this.props.switchIsQuiz(false);
-    this.props.switchIsRight(false);
-    this.props.switchIsWrong(false);
-    document.querySelector('.active').classList.remove('active');
+    this.state = {
+      props,
     }
 
-    render() {
-        return (<>{!this.props.state.isText && <img onClick={this.homeClick} id='home' src={home}></img>}</>)
 }
-
+    render() {
+        return (<img onClick={this.state.props.homeClick} id='home' src={home}></img>)
+    }
 }
 
 export default HomePage;

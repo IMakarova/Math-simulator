@@ -1,21 +1,19 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Sidebar from './Sidebar';
-import Operation from './Operation';
-import Answer from './Answer';
-import Quiz from './Quiz';
-import Timer from './Timer';
-import HomePage from './HomePage';
-import LoginLogout from './LoginLogout';
-import LoginModal from './LoginModal';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
 
-class MathSimulator extends Component {
-  state = { 
+class MathSimulator extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      props,
     header: 'How to start?',
     isText: true,
     isOperation: false,
     operation: null,
     arr: [],
-    sign: null,
     isRight: false,
     isWrong: false,
     comment: null,
@@ -28,15 +26,20 @@ class MathSimulator extends Component {
     timeIsOver: false,
     isLogin: false,
     username: '',
-    isLoginModal: false
+    score: 0,
+    isLoginModal: false,
+    src: '',
+    isTable: false,
+    bestScore: false,
+    storage: null,
   }
+}
 
   changeHeader = (val) => this.setState({header: val});
   switchIsText = (val) => this.setState({isText: val});
   switchIsOperation = (val) => this.setState({isOperation: val});
   changeOperation = (val) => this.setState({operation: val});
   changeArr = (val) => this.setState({arr: val});
-  changeSign = (val) => this.setState({sign: val});
   switchIsRight = (val) => this.setState({isRight: val});
   switchIsWrong = (val) => this.setState({isWrong: val});
   changeComment = (val) => this.setState({comment: val});
@@ -50,31 +53,39 @@ class MathSimulator extends Component {
   switchIsLogin = (val) => this.setState({isLogin: val});
   changeUsername = (val) => this.setState({username: val});
   switchIsLoginModal = (val) => this.setState({isLoginModal : val});
+  changeSrc = (val) => this.setState({src : val});
+  changeScore = (val) => this.setState({score : val});
+  switchIsTable = (val) => this.setState({isTable: val});
+  switchBestScore = (val) => this.setState({bestScore: val});
+  changeStorage = (val) => this.setState({ storage: val });
 
   render() {
     return (
     <div id="container">
-      <div id="header"><LoginLogout switchIsLogin={this.switchIsLogin} changeUsername={this.changeUsername} switchIsLoginModal ={this.switchIsLoginModal} state={this.state} />
-      <h1>Math simulator. Operations within 1000</h1><HomePage state={this.state} switchIsText={this.switchIsText} 
-      switchIsOperation={this.switchIsOperation} changeHeader={this.changeHeader} switchIsQuiz={this.switchIsQuiz} switchIsWrong={this.switchIsWrong} 
-      switchIsRight={this.switchIsRight} /></div>
-      {this.state.isLoginModal && <LoginModal state={this.state} switchIsLogin={this.switchIsLogin} changeUsername={this.changeUsername} switchIsLoginModal={this.switchIsLoginModal} />}
+      <Header state={this.state} switchIsLogin={this.switchIsLogin} changeUsername={this.changeUsername} switchIsLoginModal={this.switchIsLoginModal}    
+        switchIsText={this.switchIsText} switchIsOperation={this.switchIsOperation} changeHeader={this.changeHeader} switchIsQuiz={this.switchIsQuiz} 
+        switchIsWrong={this.switchIsWrong} switchIsRight={this.switchIsRight} changeSrc={this.changeSrc} switchIsTable={this.switchIsTable} />
 
-      <Sidebar changeHeader={this.changeHeader} switchIsText={this.switchIsText} switchIsOperation={this.switchIsOperation} changeOperation={this.changeOperation} state={this.state}
-      changeArr={this.changeArr} changeSign={this.changeSign} switchIsRight={this.switchIsRight} switchIsWrong={this.switchIsWrong} changeComment={this.changeComment} 
-      changeResult={this.changeResult} switchIsQuiz={this.switchIsQuiz} changeRandomArr={this.changeRandomArr} switchTimerIsStart={this.switchTimerIsStart} 
-      switchQuizIsStart={this.switchQuizIsStart} switchReadOnly={this.switchReadOnly} changeButton={this.changeButton} switchTimeIsOver={this.switchTimeIsOver} />
+      <Sidebar state={this.state} changeButton={this.changeButton} switchReadOnly={this.switchReadOnly} switchIsQuiz={this.switchIsQuiz} switchQuizIsStart={this.switchQuizIsStart} 
+      switchIsWrong={this.switchIsWrong} switchIsRight={this.switchIsRight}changeComment={this.changeComment} changeResult={this.changeResult} 
+      changeHeader={this.changeHeader} switchTimerIsStart={this.switchTimerIsStart} switchTimeIsOver={this.switchTimeIsOver} switchIsOperation={this.switchIsOperation} 
+      changeOperation={this.changeOperation} switchIsText={this.switchIsText} changeArr={this.changeArr} switchIsTable={this.switchIsTable} changeStorage={this.changeStorage} />
 
-      <div id="main">
-        <>{this.state.username}</>
+      <Main state={this.state}  changeArr={this.changeArr} switchIsRight={this.switchIsRight} switchIsWrong={this.switchIsWrong} changeComment={this.changeComment} 
+      changeButton={this.changeButton} changeResult={this.changeResult} switchReadOnly={this.switchReadOnly} switchQuizIsStart={this.switchQuizIsStart} 
+      switchTimerIsStart={this.switchTimerIsStart} switchTimeIsOver={this.switchTimeIsOver} switchIsLoginModal={this.switchIsLoginModal} changeScore={this.changeScore} 
+      switchBestScore={this.switchBestScore} />
+      <Footer />
+      {/* <div id="main">
+     
         <div id={this.state.isOperation ? "operation-container" : "start-text"} 
         className={`${this.state.isOperation ? "operations" : ""} ${this.state.isRight ? "rightAnswer" : ""} ${this.state.isWrong ? "wrongAnswer" : ""}`}>
           <h2>{this.state.header}</h2>
           <>{this.state.isQuiz && <Timer state={this.state} switchQuizIsStart={this.switchQuizIsStart} switchTimerIsStart={this.switchTimerIsStart} 
-          switchTimeIsOver={this.switchTimeIsOver} />}</>
+          switchTimeIsOver={this.switchTimeIsOver} switchIsWrong={this.switchIsWrong} />}</>
           <>{this.state.isQuiz && <Quiz state={this.state} changeArr={this.changeArr} changeResult={this.changeResult} switchIsWrong={this.switchIsWrong} 
-          switchQuizIsStart={this.switchQuizIsStart} switchTimerIsStart={this.switchTimerIsStart} />}</>
-          {/* <>{this.state.timeIsOver && <div>Time is over!!!</div>}</> */}
+          switchQuizIsStart={this.switchQuizIsStart} switchTimerIsStart={this.switchTimerIsStart} changeScore={this.changeScore} switchIsLoginModal={this.switchIsLoginModal} 
+          switchTimeIsOver={this.switchTimeIsOver} />}</>
 
           <>{!this.state.isQuiz && 
           <><div id={this.state.isOperation ? this.state.operation : ""} className={this.state.isOperation ? "operation" : ""} >
@@ -85,11 +96,8 @@ class MathSimulator extends Component {
           <>{this.state.isOperation && <div id="comment">{this.state.comment}</div>}
           <>{this.state.isWrong &&<Answer changeComment={this.changeComment} state={this.state} switchReadOnly={this.switchReadOnly} />}</></></>}</>
         </div>
-      </div>
-      <div id="footer">
-        <div id="copyright">&copy; Irina Makarova</div>
-        <div id="year">2022</div>
-      </div>
+      </div> */}
+
     </div>
     )
   }

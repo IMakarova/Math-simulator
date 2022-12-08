@@ -1,0 +1,64 @@
+#main{
+    grid-area: main;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+#operation-container > div{
+    display: flex;
+    flex-direction: row;
+    /* margin-top: 10px; */
+}
+.operations{
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+    padding: 20px 20px;
+}
+/* #start-text, .operations, #results-table{
+    padding: 0 0 0 20px;
+    margin-left: 60px;
+} */
+/* #main + div{
+
+} */
+/* .operation, .welcome-text{
+    margin-left: 20px;
+} */
+.rightAnswer{
+    background-color: var(--right-background);
+}
+.wrongAnswer{
+    background-color: var(--wrong-background);
+}
+#comment{
+    padding: 10px 0 0 20px;
+    font-size: 0.85em;
+}
+.wrongAnswer #comment{
+color: var(--wrong-color);
+}
+.wrongAnswer input{
+    border: 2px solid var(--wrong-color);
+    border-radius: 3px;
+}
+.rightAnswer input{
+    border: 2px solid var(--header-background);
+    border-radius: 3px;
+}
+h2{
+    font-size: 1.4em;
+    font-weight: normal;
+    margin-left: 40px;
+    margin-top: 20px;
+}
+span{
+    padding-left: 5px;
+    font-weight: bold;
+}
+#start-text{
+    margin-left: 60px;
+}
+#quiz-container{
+    padding-top: 0px;
+}

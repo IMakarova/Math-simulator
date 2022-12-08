@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import './style.css';
 
-class Timer extends Component {
+class Timer extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-        // timeIsOver: false,
+        props,
         isQuiz: true
     }
   }
@@ -27,13 +28,31 @@ class Timer extends Component {
 
     const updateTimer = () => {
       timeLeft = endTime - Number(new Date);
+      // console.log(timeLeft, typeof timeLeft)
       if(!document.getElementById('timer')) {
         clearTimeout(quizTimeout);
       } else {
       if (timeLeft < 1000) {
         // this.setState({timeIsOver: true});
+        this.props.switchIsWrong(false);
         this.props.switchTimeIsOver(true);
-        document.getElementById('timer').innerHTML =`Time is over`;
+        // this.props.switchQuizIsStart(false);
+        console.log(this.state);
+        document.getElementById('timer').innerHTML =`Time is over!`;
+        console.log(this.props.state.username);
+        if(this.props.state.score < 0) {
+          this.props.changeScore(0);
+          console.log(this.props.state.score);
+        }
+        if(localStorage.getItem(this.props.state.username) && this.props.state.score > localStorage.getItem(this.props.state.username)) {
+          this.props.switchBestScore(true);
+          console.log('best result', this.props.state.bestScore, this.props.state.isTable, this.props.switchBestScore)
+         }
+        localStorage.setItem(this.props.state.username, 
+          localStorage.getItem(this.props.state.username) > this.props.state.score ? localStorage.getItem(this.props.state.username) : 
+          this.props.state.score > 0 ? this.props.state.score : 0);
+       
+        // console.log(localStorage.getItem(this.props.state.username), 'test', myLocalStorage);
       } else {
         time = new Date(timeLeft);
         min = time.getUTCMinutes();
@@ -43,6 +62,7 @@ class Timer extends Component {
         document.getElementById('timer').innerHTML = `${min} : ${twoDigits(sec)}`;
 
       }
+      
     }
     }
 
@@ -50,11 +70,13 @@ class Timer extends Component {
     return updateTimer();
   }
 
-  componentWillUnmount() {
+  componentDidMount () {
+    // localStorage.clear();
+    // console.log(localStorage)
   }
   render() {return (
     <><div id='timer' className={!this.props.state.quizIsStart ? 'hidden' : ''}></div>
-    <>{this.props.state.quizIsStart && <>{!this.props.state.timerIsStart && <div id='timer-container'>{!this.props.state.timeIsOver && this.timer(0, 30)}</div>}</>}</>
+    <>{this.props.state.quizIsStart && <>{!this.props.state.timerIsStart && <div id='timer-container'>{!this.props.state.timeIsOver && this.timer(0, 10)}</div>}</>}</>
     {/* <>{this.swith()}</> */}
     </>
   );
