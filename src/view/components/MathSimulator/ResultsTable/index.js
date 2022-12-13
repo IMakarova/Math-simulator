@@ -10,18 +10,25 @@ class ResultsTable extends PureComponent {
     }
   }
 componentDidMount() {
-  console.log(Object.keys(localStorage).length);
   this.tableOfResults();
 }
 
+sortTable = () => {
+const sortedTable = Object.entries(localStorage)
+    .sort(([,a],[,b]) => a-b)
+    .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+return sortedTable;
+}
+
 tableOfResults = () => {
+  const sortedTable = Object.entries(this.sortTable()).slice(0, 9);
   const table = document.getElementById('results-table');
-  const keys = Object.keys(localStorage)
-  for (let i = 0; i < keys.length; i++) {
+  // console.log(sortedTable);
+  for (let i = 0; i < sortedTable.length; i++) {
   const row = document.createElement('div');
   row.id = 'row';
-  row.innerHTML = `<div>${keys[i]}</div><div>${localStorage.getItem(keys[i])}</div>`;
-  console.log(localStorage);
+  row.innerHTML = `<div>${sortedTable[i][0]}</div><div>${sortedTable[i][1]}</div>`;
+  // console.log(localStorage);
   table.append(row);
   }
 }

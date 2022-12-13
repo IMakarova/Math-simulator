@@ -1,64 +1,32 @@
-import React, { PureComponent } from 'react';
+import React, { useContext } from 'react';
 import LoginLogout from '../LoginLogout';
 import HomePage from '../HomePage';
 import Avatar from '../Avatar';
 import LoginModal from '../LoginModal';
 import Title from '../Title';
 import './style.css';
+import SidebarContext from '../../../../context/sidebar-context';
+import AuthContext from '../../../../context/auth-context';
 
-class Header extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      props,
-    };
-  }
-  componentDidMount() {
-    console.log(this.state);
-  }
+const Header = () => {
+  const context = useContext(SidebarContext);
+  const loginContext = useContext(AuthContext);
 
-  homeClick = (e) => {
-  this.props.switchIsText(true);
-  this.props.switchIsOperation(false);
-  this.props.changeHeader('How to start?');
-  this.props.switchIsQuiz(false);
-  this.props.switchIsRight(false);
-  this.props.switchIsWrong(false);
-  document.querySelector('.active').classList.remove('active');
-  this.props.switchIsTable(false);
-  }
+  const homeClick = (e) => {
+    console.log(context.isText);
+    context.startPageAction();
+    console.log(context.isText);
+  };
 
-  render() {
-    return (
-      <div id="header">
-
-        {!this.props.state.isText && (
-          <HomePage homeClick = {this.homeClick} />
-        )}
-
-        <Title homeClick = {this.homeClick} state={this.props.state} />
-
-        {this.props.state.isLogin && <Avatar state={this.props.state} />}
-
-        <LoginLogout
-          switchIsLogin={this.props.switchIsLogin}
-          changeUsername={this.props.changeUsername}
-          switchIsLoginModal={this.props.switchIsLoginModal}
-          state={this.props.state}
-        />
-
-        {this.props.state.isLoginModal && (
-          <LoginModal
-            state={this.props.state}
-            switchIsLogin={this.props.switchIsLogin}
-            changeUsername={this.props.changeUsername}
-            switchIsLoginModal={this.props.switchIsLoginModal}
-            changeSrc={this.props.changeSrc}
-          />
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div id="header">
+      {!context.isText && <HomePage homeClick={homeClick} />}
+      <Title homeClick={homeClick} />
+      {loginContext.isLogin && <Avatar />}
+      <LoginLogout />
+      {loginContext.isLoginModal && <LoginModal />}
+    </div>
+  );
+};
 
 export default Header;

@@ -1,78 +1,92 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useContext, useEffect } from 'react';
 import { add, sub, mul, div } from '../Operations';
+import SidebarContext from '../../../../context/sidebar-context';
 
-class Operation extends PureComponent {
-    constructor(props) {
-      super(props);
-   }
-  
-  formula = () => `${this.props.state.arr[0]} ${this.props.state.arr[3]} ${this.props.state.arr[1]} =`;
-
-  checkClick = (e) => {
+// class Operation extends PureComponent {
+//     constructor(props) {
+//       super(props);
+//    }
+const Operation = () => {
+  const context = useContext(SidebarContext);
+  const formula = () => `${context.arr[0]} ${context.arr[3]} ${context.arr[1]} =`;
+useEffect(() => {
+  console.log(context.arr);
+})
+  const checkClick = (e) => {
 
       const userResult = document.getElementById('result').value;
-      if (Number(userResult) === this.props.state.arr[2]) {
-        this.props.switchIsRight(true);
-        this.props.switchIsWrong(false);
-        this.props.changeComment('That is right!');
-        this.props.changeButton('next');
+      if (Number(userResult) === context.arr[2]) {
+        context.rightAnswerAction();
+        // context.isRight(true);
+        // context.isWrong(false);
+        // context.comment('That is right!');
+        // context.button('next');
       } else {
-        this.props.switchIsWrong(true);
-        this.props.switchIsRight(false);
+        // context.isWrong(true);
+        // context.isRight(false);
         if (userResult === '') {
-          this.props.changeComment('Please, write your answer!');
+          context.nullAnswerAction();
+          // context.comment('Please, write your answer!');
         } else {
-        this.props.changeComment('That is wrong!');
+          context.wrongAnswerAction();
+          // context.comment('That is wrong!');
         }
       }
   }
-  enterClick = (e) => {
+  const enterClick = (e) => {
     e.preventDefault();
 console.log('Enter pressed');
 }
-  nextClick = (e) => {
-    this.props.switchIsRight(false);
-    this.props.changeComment('');
-    this.props.changeButton('check');
-    this.props.changeResult('');
-    let arr = [];
+  const nextClick = (e) => {
+    // context.isRight(false);
+    // context.comment('');
+    // context.button('check');
+    // context.result('');
+    // let arr = [];
     if (document.getElementById('addition')) {
-      arr = add();
-      this.props.changeArr(arr);
+      // arr = add();
+      context.nextOperationAction(add());
+
   }
   if (document.getElementById('substraction')) {
-    arr = sub();
-    this.props.changeArr(arr);
+    // arr = sub();
+    context.nextOperationAction(sub());
   }
   if (document.getElementById('multiplication')) {
-    arr = mul();
-    this.props.changeArr(arr);
+    // arr = mul();
+    context.nextOperationAction(mul());
   }
   if (document.getElementById('division')) {
-    arr = div();
-    this.props.changeArr(arr);
+    // arr = div();
+    context.nextOperationAction(div());
   }
 
   }
 
-  setResult = (event) => {
-  const result = (event.target.validity.valid) ? event.target.value : this.props.state.result;
-    this.props.changeResult(result);
+  const setResult = (event) => {
+  const result = (event.target.validity.valid) ? event.target.value : context.result;
+  context.getResultAction(result);
   }
 
-  render() {
+  // render() {
     return (
+      <SidebarContext.Consumer>
+      {(context) => {
+        return (
         <>
-        <div>{this.formula()}</div>
-        <form onSubmit={this.enterClick}>
+        <div>{formula()}</div>
+        <form onSubmit={enterClick}>
         <input type="text" pattern="[0-9]*" id = 'result' placeholder='result' 
-        onChange={this.setResult} value={this.props.state.result} readOnly = {this.props.state.readOnly ? true : false}/>
-        {!this.props.state.readOnly ? <button type='submit' id={this.props.state.button === 'check' ? "check-result" : "next"} 
-        onClick={this.props.state.button === 'check' ? this.checkClick : this.nextClick}>{this.props.state.button}</button> : <></>}
+        onChange={setResult} value={context.result} readOnly = {context.readOnly ? true : false}/>
+        {!context.readOnly ? <button type='submit' id={context.button === 'check' ? "check-result" : "next"} 
+        onClick={context.button === 'check' ? checkClick : nextClick}>{context.button}</button> : <></>}
         </form>
         </>
+                )
+              }}
+              </SidebarContext.Consumer>
   )
-}
+// }
 
 }
 

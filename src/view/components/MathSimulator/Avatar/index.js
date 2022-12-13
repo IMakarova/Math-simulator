@@ -1,28 +1,28 @@
-import React, { PureComponent } from 'react';
+import React, { useContext } from 'react';
 import './style.css';
+import AuthContext from '../../../../context/auth-context';
 
-class Avatar extends PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            props
-        }
-    }
+const Avatar = () => {
+  const context = useContext(AuthContext);
 
-getUrl = () => {
-    let url = Object.values(this.props.state.src)
-    url = url[0].replaceAll('"', '');
+  const getUrl = () => {
+    let url = context.src;
+    url = url.replaceAll('"', '');
     return url;
-}
+  };
 
-    render() {
+  return (
+    <AuthContext.Consumer>
+      {(context) => {
         return (
-            <div id='avatar'>
-                <img src={this.getUrl()}></img>
-                <div id='username'>{this.props.state.username}</div>
-                </div>
-            )
-    }
-}
+          <div id="avatar">
+            <img alt='avatar' src={getUrl()}></img>
+            <div id="username">{context.username}</div>
+          </div>
+        );
+      }}
+    </AuthContext.Consumer>
+  );
+};
 
 export default Avatar;

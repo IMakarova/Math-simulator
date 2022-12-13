@@ -1,68 +1,88 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useContext } from 'react';
 import { add, sub, mul, div, mixedOperation } from '../Operations';
+import SidebarContext from '../../../../context/sidebar-context';
 
-class SidebarButtons extends PureComponent {
-    constructor(props) {
-      super(props);
-      this.state = {
-        props,
-      }
-    }
+const SidebarButtons = () => {
+  const context = useContext(SidebarContext);
 
-additionHandler = () => {
-    this.props.changeArr(add());
-}
-substractionHandler = () => {
-    this.props.changeArr(sub());
-}
-multiplicationHandler = () => {
-    this.props.changeArr(mul());
-}
-divisionHandler = () => {
-    this.props.changeArr(div());
-}
-quizHandler = () => {
-    this.props.switchIsQuiz(true);
-    this.props.changeArr(mixedOperation());
-}
-resultsHandler = () => {
-    this.props.switchIsOperation(false);
-    this.props.switchIsTable(true);
-}
+  const additionHandler = (e) => {
+    context.operationAction(add(), e.target.textContent.toLowerCase(), e.target.textContent);
+    console.log(context.arr, context.isText);
+    // this.props.changeArr(add());
+  };
+  const substractionHandler = (e) => {
+    context.operationAction(sub(), e.target.textContent.toLowerCase(), e.target.textContent);
+    console.log(context.arr);
+    // this.props.changeArr(sub());
+  };
+  const multiplicationHandler = (e) => {
+    context.operationAction(mul(), e.target.textContent.toLowerCase(), e.target.textContent);
+    // this.props.changeArr(mul());
+  };
+  const divisionHandler = (e) => {
+    context.operationAction(div(), e.target.textContent.toLowerCase(), e.target.textContent);
+    // this.props.changeArr(div());
+  };
+  const quizHandler = (e) => {
+    context.quizAction(mixedOperation(), e.target.textContent);
+    console.log(context.isQuiz, context.quizIsStart, context.arr)
+    // this.props.switchIsQuiz(true);
+    // this.props.changeArr(mixedOperation());
+  };
+  const resultsHandler = (e) => {
+    context.resultsAction(e.target.textContent);
+    console.log(e.target.textContent);
+    // this.props.switchIsOperation(false);
+    // this.props.switchIsTable(true);
+  };
 
-sidebarButtons = [
+  const sidebarButtons = [
     {
       label: 'Addition',
-      handler: this.additionHandler()
+      handler: additionHandler,
     },
     {
-        label: 'Substraction',
-        handler: this.substractionHandler()
-      }, 
-      {
-        label: 'Multiplication',
-        handler: this.multiplicationHandler()
-      },   
-      {
-        label: 'Division',
-        handler: this.divisionHandler()
-      },    
-      {
-        label: 'Quiz',
-        handler: this.quizHandler()
-      },    
-      {
-        label: 'Best results',
-        handler: this.resultsHandler()
-      }
-  ]
+      label: 'Substraction',
+      handler: substractionHandler,
+    },
+    {
+      label: 'Multiplication',
+      handler: multiplicationHandler,
+    },
+    {
+      label: 'Division',
+      handler: divisionHandler,
+    },
+    {
+      label: 'Quiz',
+      handler: quizHandler,
+    },
+    {
+      label: 'Best results',
+      handler: resultsHandler,
+    },
+  ];
 
-      render() {
+  // render() {
+  return (
+    <SidebarContext.Consumer>
+      {(context) => {
+        return sidebarButtons.map(({ label, handler }) => {
           return (
-            this.sidebarButtons
-          )
-      }
-  }
-  
-  export default SidebarButtons;
+            <li
+              key={label}
+              className={`sideBarButton ${label.toLowerCase().replace(' ', '-')}`}
+              onClick={handler}
+            >
+              {label}
+            </li>
+          );
+        });
+      }}
+    </SidebarContext.Consumer>
+  );
+};
 
+// }
+
+export default SidebarButtons;

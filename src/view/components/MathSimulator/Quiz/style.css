@@ -35,3 +35,13 @@ margin-top: 20px;
 #best{
     margin-top: 10px;
 }
+#quiz-container{
+    padding-top: 0px;
+}
+#quiz{
+    display: flex;
+    flex-direction: row;
+}
+#timer-end{
+    margin: 10px 0;
+}

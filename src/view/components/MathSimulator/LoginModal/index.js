@@ -1,88 +1,69 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useContext, useState } from 'react';
 import './style.css';
+import AuthContext from '../../../../context/auth-context';
 
-class LoginModal extends PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-          props,
-            enteredUsername: '',
-            enteredPassword: '',
-            usernameClass: '',
-            usernamePlaceholder: ''
-        }
+const LoginModal = () => {
+  const context = useContext(AuthContext);
+  const [enteredUsername, setEnteredUsername] = useState('');
+  const [enteredPassword, setEnteredPassword] = useState('');
+  const [usernameClass, setUsernameClass] = useState('');
+  const [usernamePlaceholder, setUsernamePlaceholder] = useState('');
+
+  const generateSrc = () => {
+    const url = 'https://robohash.org/' + enteredUsername + '.png?set=set4';
+    const urlString = JSON.stringify(url);
+    context.setAvatarAction(urlString);
+  };
+
+  const userNameChangeHandler = (event) => {
+    setUsernameClass('');
+    setEnteredUsername(event.target.value);
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+  };
+
+  const loginClick = (event) => {
+    event.preventDefault();
+    if (!enteredUsername) {
+      setUsernameClass('empty-username');
+      setUsernamePlaceholder('enter your username');
+    } else {
+      setUsernameClass('');
+      setEnteredPassword('');
+      setEnteredUsername('');
+      context.loginSuccessAction(enteredUsername);
+      generateSrc();
     }
+  };
 
-    generateSrc = () => {
-      const url = 'https://robohash.org/' + this.state.enteredUsername + '.png?set=set4';
-      const urlString = JSON.stringify(url)
-      this.props.changeSrc({urlString});
-  }
+  const closeClick = (event) => {
+    context.logoutAction();
+  };
 
-    userNameChangeHandler = (event) => { 
-        this.setState({usernameClass: ''})
-        this.setState({enteredUsername: event.target.value}); 
-        console.warn('userNameChangeHandler', event.target.value);
-      } 
-     
-    // passwordChangeHandler = (event) => { 
-    //     this.setState({enteredPassword: event.target.value}); 
-    //   } 
-     
-    submitHandler = (event) => { 
-        event.preventDefault();
-      } 
-
-    loginClick = (event) => {
-      event.preventDefault();
-      if (!this.state.enteredUsername) {
-        this.setState({usernameClass: 'empty-username'});
-        this.setState({usernamePlaceholder: 'enter your username'});
-      } else {
-      this.setState({usernameClass: ''})
-      this.props.switchIsLogin(true); 
-      this.props.changeUsername(this.state.enteredUsername); 
-      this.generateSrc();
-      this.setState({enteredUsername: ''}); 
-      this.setState({enteredPassword: ''}); 
-      this.props.switchIsLoginModal(false);
-      }
-    }
-
-    closeClick = (event) => {
-      // event.preventDefault();
-      this.props.switchIsLoginModal(false);
-    }
-
-//     componentDidMount() {
-//       console.log(typeof this.closeClick)
-//       window.addEventListener = ('keydown', (event) => {
-//         // if (true) {
-// console.log('ok');
-//           this.closeClick();
-//         // }
-//       })
-//     }
-
-    render()  {
-        return ( 
-        <div className="login-modal"> 
-          <div id='modal-window'>
-          <button id='close' onClick={this.closeClick}>&#x2715;</button>
-          <form onSubmit={this.loginClick}> 
-
-            <div id='modal-form'> 
-              <label>Username</label> 
-              <input className={this.state.usernameClass} type="text" placeholder={this.state.usernamePlaceholder} value={this.enteredUsername} onChange={this.userNameChangeHandler} /> 
-              {/* <label>Password</label> 
-              <input type="password" value={this.enteredPassword} onChange={this.passwordChangeHandler} />  */}
-            </div> 
-            <button type="submit">Login</button> 
-          </form> 
+  return (
+    <div className="login-modal">
+      <div id="modal-window">
+        <button id="close" onClick={closeClick}>
+          &#x2715;
+        </button>
+        <form onSubmit={loginClick}>
+          <div id="modal-form">
+            <label>Username</label>
+            <input
+              className={usernameClass}
+              type="text"
+              placeholder={usernamePlaceholder}
+              value={enteredUsername}
+              onChange={userNameChangeHandler}
+            />
           </div>
-        </div> 
-      ) 
-    }
-}
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+  );
+};
 
 export default LoginModal;

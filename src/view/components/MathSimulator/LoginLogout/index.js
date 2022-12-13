@@ -1,34 +1,23 @@
-import React, { PureComponent } from 'react';
+import React, { useContext } from 'react';
 import './style.css';
+import AuthContext from '../../../../context/auth-context';
 
-class LoginLogout extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      props,
-    };
-  }
+const LoginLogout = () => {
+  const context = useContext(AuthContext);
 
-  loginHandler = (event) => {
-    if (this.props.switchIsLoginModal) {
-      this.props.switchIsLoginModal(true);
-    } else {
-      this.props.state.props.switchIsLoginModal(true);
-    }
+  const loginHandler = (event) => {
+    context.showLoginAction();
   };
 
-  logoutHandler = (event) => {
-    this.props.switchIsLogin(false);
-    this.props.changeUsername('');
+  const logoutHandler = (event) => {
+    context.logoutAction();
   };
 
-  render() {
     return (
-      <button id="login" onClick={this.props.state.isLogin ? this.logoutHandler : this.loginHandler}>
-        {this.props.state.isLogin ? 'Logout' : 'Login'}
+      <button id="login" onClick={context.isLogin ? logoutHandler : loginHandler}>
+        {context.isLogin ? 'Logout' : 'Login'}
       </button>
     );
-  }
 }
 
 export default LoginLogout;
