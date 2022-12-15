@@ -2,15 +2,14 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 import './style.css';
 import SidebarContext from '../../../../context/sidebar-context';
 
+// problem part
+import moment, { duration } from './../../../../../node_modules/moment';
+const momentTime = moment.duration({
+  seconds: 0,
+  minutes: 2,
+})
+// problem part end
 
-// class Timer extends PureComponent {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//         props,
-//         isQuiz: true
-//     }
-//   }
 const Timer = () => {
   const context = useContext(SidebarContext);
   const [timeLeft, setTimeLeft] = useState(70);
