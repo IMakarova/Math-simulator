@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import './style.css';
 import SidebarContext from '../../../../context/sidebar-context';
-import moment from './../../../../../node_modules/moment';
 
 
 // class Timer extends PureComponent {
@@ -18,11 +17,6 @@ const Timer = () => {
   const [min, setMin] = useState (0);
   const [sec, setSec] = useState (0);
   const timer = useRef(null);
-
-  const momentTime = moment.duration({
-    seconds: 0,
-    minutes: 2,
-  })
 
   const twoDigits = (n) => {
     return (n <= 9 ? "0" + n : n);
