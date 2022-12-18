@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import './style.css';
 import SidebarContext from '../../../../context/sidebar-context';
+import AuthContext from '../../../../context/auth-context';
 
 
 // class Timer extends PureComponent {
@@ -13,6 +14,7 @@ import SidebarContext from '../../../../context/sidebar-context';
 //   }
 const Timer = () => {
   const context = useContext(SidebarContext);
+  const loginContext = useContext(AuthContext);
   const [timeLeft, setTimeLeft] = useState(70);
   const [min, setMin] = useState (0);
   const [sec, setSec] = useState (0);
@@ -49,14 +51,14 @@ const Timer = () => {
             context.negativeResultAction();
             console.log('negativeResultAction')
           }
-          if(localStorage.getItem(context.username) && context.score > localStorage.getItem(context.username)) {
+          if(localStorage.getItem(loginContext.username) && context.score > localStorage.getItem(loginContext.username)) {
             context.bestResultAction();
             console.log('bestResultAction')
            }
-          localStorage.setItem(context.username, 
-            localStorage.getItem(context.username) > context.score ? localStorage.getItem(context.username) : 
+          localStorage.setItem(loginContext.username, 
+            localStorage.getItem(loginContext.username) > context.score ? localStorage.getItem(loginContext.username) : 
             context.score > 0 ? context.score : 0);
-            console.log(localStorage.getItem(context.username));
+            console.log(localStorage.getItem(loginContext.username));
       }
   }, [timeLeft])
 

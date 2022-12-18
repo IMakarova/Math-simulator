@@ -16,9 +16,13 @@ const LoginModal = () => {
   };
 
   const userNameChangeHandler = (event) => {
+    console.log()
     setUsernameClass('');
-    setEnteredUsername(event.target.value);
-  };
+    // setEnteredUsername(event.target.value);
+    const username = (event.target.validity.valid) ? event.target.value : enteredUsername;
+    setEnteredUsername(username);
+    console.log(username);
+  }
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -52,6 +56,7 @@ const LoginModal = () => {
           <div id="modal-form">
             <label>Username</label>
             <input
+              pattern="[\w\-]*"
               className={usernameClass}
               type="text"
               placeholder={usernamePlaceholder}

@@ -5,6 +5,7 @@ import { mixedOperation } from '../Operations';
 import './style.css';
 import SidebarContext from '../../../../context/sidebar-context';
 import AuthContext from '../../../../context/auth-context';
+import Confetti from '../Confetti';
 
 // class Quiz extends PureComponent {
 //   constructor(props) {
@@ -104,13 +105,17 @@ const setResult = (event) => {
     <>
       {context.timeIsOver && <div id='timer-end'>Time is over!</div>}
       <>
-    <>{context.quizIsStart && <Timer />}</>
+    <>{context.quizIsStart && 
+      <Timer />
+    }</>
       <div className={`${context.quizIsStart ? 'operation' : 'start-page'} ${context.isWrong ? "wrongAnswer" : ""}`} id={context.quizIsStart ? 'quiz' : 'quiz-rules'}>
           <>
             {context.timeIsOver && 
               <>
-                <div id='quiz-end'><div>Your score is {context.score >= 0 ? context.score : 0}.</div>
-                {context.bestScore && <div id='best'>Congratulations! This is your best result!</div>}
+                <div id='quiz-end'><div>Your score is <span>{context.score >= 0 ? context.score : 0}</span>.</div>
+                {context.bestScore && 
+                <><div id='best'>Congratulations! This is your best result!</div>
+                <Confetti /></>}
                 <p>Do you want to try one more time?</p>
                 <button onClick={startClick}>Start</button>
                 </div>

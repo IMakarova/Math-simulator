@@ -14,11 +14,11 @@
     margin-left: 20px;
 }
 #quiz-end p{
-padding: 0px;
-margin-top: 20px;
+/* padding: 0px; */
+margin-top: 10px;
 }
-#quiz-end div{
-    padding: 0px;
+#quiz-end > *{
+    padding-left: 5px;
     }
 #quiz-end button, .last{
     margin-top: 20px;
@@ -34,6 +34,9 @@ margin-top: 20px;
     }
 #best{
     margin-top: 10px;
+    background-color: var(--right-background);
+    padding: 5px;
+    width: fit-content;
 }
 #quiz-container{
     padding-top: 0px;
@@ -44,4 +47,5 @@ margin-top: 20px;
 }
 #timer-end{
     margin: 10px 0;
+    padding-left: 5px;
 }

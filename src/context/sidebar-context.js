@@ -48,6 +48,7 @@ const sidebarReducer = (state, action) => {
         arrState: action?.payload?.arr,
         operationState: action?.payload?.operation,
         isQuizState: false,
+        quizIsStartState: false,
         isTableState: false,
         isRightState: false,
         isWrongState: false,
@@ -180,6 +181,8 @@ const sidebarReducer = (state, action) => {
         isTextState: false,
         isOperationState: false,
         isQuizState: false,
+        quizIsStartState: false,
+        isWrongState: false,
       };
     }
     case 'GET_RESULT': {

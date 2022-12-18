@@ -104,9 +104,7 @@ class Sidebar extends PureComponent {
           return (
             <div id="sidebar">
               <h3>Operations</h3>
-              <ul>
                 <SidebarButtons />
-              </ul>
             </div>
           );
         }}

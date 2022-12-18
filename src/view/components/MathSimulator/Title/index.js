@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import './style.css';
 import SidebarContext from '../../../../context/sidebar-context';
+import { NavLink } from 'react-router-dom';
 
 class Title extends PureComponent {
   
@@ -10,7 +11,10 @@ class Title extends PureComponent {
       {(context) => {
         return (
         <>{context.isText ? <h1>Math simulator. Operations within 1000</h1> : 
-        <h1 className='link' onClick={this.state.props.homeClick}>Math simulator. Operations within 1000</h1>}</>
+        <NavLink to='/welcome' className=''>
+        <h1 onClick={this.props.homeClick} className='link'>Math simulator. Operations within 1000</h1>
+        </NavLink>
+        }</>
         )
       }}
       </SidebarContext.Consumer>

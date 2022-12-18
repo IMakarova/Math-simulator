@@ -1,9 +1,35 @@
-#results-table{
+#results-page{
     margin-left: 60px;
 }
-#row{
+.row{
     display: flex;
     flex-direction: row;
     width: 300px;
     justify-content: space-between;
+    border-bottom: 2px solid var(--header-background);
+    padding: 2px 5px;
+}
+#results-table{
+    margin-top: 20px;
+}
+.current{
+    background-color: var(--right-background);
+}
+.outside::before{
+    content: '. . .';
+    position: absolute;
+    top: -26px;
+    left: 0px;
+    line-height: 16px;
+    font-weight: bold;
+    background-color: rgb(	228, 228, 228);
+    width: 300px;
+    height: 24px;
+    padding: 0 5px;
+}
+.outside{
+    background-color: var(--right-background);
+    border-top: 2px solid var(--header-background);
+    margin-top: 24px;
+    position: relative;
 }

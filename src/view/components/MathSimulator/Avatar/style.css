@@ -10,6 +10,7 @@
     right: 100px;
     display: flex;
     flex-direction: row-reverse;
+    overflow: hidden;
 }
 #avatar img{
     height: 32px;

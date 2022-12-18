@@ -1,6 +1,7 @@
 import React, { PureComponent, useContext } from 'react';
 import { add, sub, mul, div, mixedOperation } from '../Operations';
 import SidebarContext from '../../../../context/sidebar-context';
+import { NavLink } from 'react-router-dom';
 
 const SidebarButtons = () => {
   const context = useContext(SidebarContext);
@@ -69,13 +70,11 @@ const SidebarButtons = () => {
       {(context) => {
         return sidebarButtons.map(({ label, handler }) => {
           return (
-            <li
-              key={label}
-              className={`sideBarButton ${label.toLowerCase().replace(' ', '-')}`}
-              onClick={handler}
-            >
+            // <li>
+            <NavLink activeClassName='active' to={`/${label.toLowerCase()}`} className={`sideBarButton ${label.toLowerCase().replace(' ', '')}`} onClick={handler} key={label}>
               {label}
-            </li>
+              </NavLink>
+            // </li>
           );
         });
       }}

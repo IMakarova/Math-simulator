@@ -1,7 +1,7 @@
 :root {
     --header-background: rgb(118, 191, 154);
     --header-color: rgb(	242, 169, 65);
-    --sidebar-background: rgb(247, 216, 44);
+    --sidebar-background: rgba(247, 216, 44, 1);
     --wrong-background: rgb(255, 198, 189);
     --right-background:rgb(216, 248, 201);
     --wrong-color: rgb(127, 10, 13);
@@ -65,7 +65,9 @@ input:focus{
 input:read-only{
         border: 2px solid var(--wrong-color);
 }
-
+a{
+    text-decoration: none;
+}
 
 
 
