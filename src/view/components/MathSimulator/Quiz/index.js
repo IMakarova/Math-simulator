@@ -102,7 +102,7 @@ const setResult = (event) => {
       <SidebarContext.Consumer>
       {(context) => {
         return (
-    <>
+    <div id='quiz-container' className={`operations ${context.isWrong ? "wrongAnswer" : ""}`}>
       {context.timeIsOver && <div id='timer-end'>Time is over!</div>}
       <>
     <>{context.quizIsStart && 
@@ -157,7 +157,7 @@ const setResult = (event) => {
           }</>
       </div>
       </>
-      </>           )
+      </div>           )
             }}
             </SidebarContext.Consumer>
                           )

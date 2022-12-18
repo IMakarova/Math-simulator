@@ -11,7 +11,7 @@ class Title extends PureComponent {
       {(context) => {
         return (
         <>{context.isText ? <h1>Math simulator. Operations within 1000</h1> : 
-        <NavLink to='/welcome' className=''>
+        <NavLink to='/' className=''>
         <h1 onClick={this.props.homeClick} className='link'>Math simulator. Operations within 1000</h1>
         </NavLink>
         }</>

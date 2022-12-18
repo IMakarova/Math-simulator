@@ -8,7 +8,7 @@ const SidebarButtons = () => {
 
   const additionHandler = (e) => {
     context.operationAction(add(), e.target.textContent.toLowerCase(), e.target.textContent);
-    console.log(context.arr, context.isText);
+    console.log(context);
     // this.props.changeArr(add());
   };
   const substractionHandler = (e) => {
@@ -71,9 +71,10 @@ const SidebarButtons = () => {
         return sidebarButtons.map(({ label, handler }) => {
           return (
             // <li>
-            <NavLink activeClassName='active' to={`/${label.toLowerCase()}`} className={`sideBarButton ${label.toLowerCase().replace(' ', '')}`} onClick={handler} key={label}>
+            <NavLink activeClassName='active' to={`/${label.toLowerCase().replace(' ', '-')}`} 
+              className={`sideBarButton ${label.toLowerCase().replace(' ', '-')}`} onClick={handler} key={label}>
               {label}
-              </NavLink>
+            </NavLink>
             // </li>
           );
         });

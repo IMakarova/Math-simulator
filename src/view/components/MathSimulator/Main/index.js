@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import './style.css';
-import { Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 // import Timer from '../Timer';
 import Quiz from '../Quiz';
 import Operation from '../Operation';
@@ -26,43 +26,59 @@ class Main extends PureComponent {
       {(context) => {
         return (
         <div id="main">
-            <Route path='*'>
+          <h2>{context.header}</h2>
+            <Switch>
+            {/* <Route path='*'>
               <h2>{context.header}</h2>
-              </Route>
-            {context.isText && 
+              </Route> */}
+            {/* {context.isText &&  */}
               <Route path='/' exact>
                 <div id="start-text"><p>Choose preferable math operation from the list on the left to start practicing your skills.</p></div>
               </Route>
-            }
+            {/* } */}
         {/* <h2>{context.header}</h2>
 
         {context.isText && <div id="start-text"><p>Choose preferable math operation from the list on the left to start practicing your skills.</p></div>} */}
 
-        <>{context.isOperation && <><div id={context.isQuiz ? "quiz-container" : "operation-container"} className={`operations ${context.isRight ? "rightAnswer" : ""} 
-        ${context.isWrong ? "wrongAnswer" : ""}`}>
+        {/* <>{context.isOperation && <> */}
+        
+        {/* <div id={context.isQuiz ? "quiz-container" : "operation-container"} className={`operations ${context.isRight ? "rightAnswer" : ""} 
+        ${context.isWrong ? "wrongAnswer" : ""}`}> */}
 
-          {/* <>{context.isQuiz && <Timer />}</> */}
 
-          <>{context.isQuiz && 
-            <Route path='/quiz'>
-              {/* <h2>{context.header}</h2> */}
-              <Quiz />
-            </Route>}</>
+          {/* <>{context.isQuiz &&  */}
+              <Route path='/quiz'>
+                <Quiz />
+              </Route>
+            {/* // }</> */}
+            <Route path='/:context.operation'>
+            <Operation />
+          </Route>
+          <>{
+          // !context.isQuiz && 
+          // <><div id={context.operation} className="operation">
 
-          <>{!context.isQuiz && 
-          <><div id={context.operation} className="operation">
+          // {context.isOperation && 
 
-          {context.isOperation && <Operation />}  
-          </div>
 
-          <>{context.isOperation && <div id="comment">{context.comment}</div>}
-
-          <>{context.isWrong &&<Answer />}</></></>}</>
-          </div>
-          </>}</>
-          {context.isTable && <ResultsTable />}
-
+          // }  
+          // {/* </div> */}
+          // <>
+          // <>{context.isOperation && 
+          
+          // }</>
+            
+          // </>
+          }</>
+          {/* </div> */}
+          {/* </>}</> */}
+          {/* {context.isTable && <ResultsTable />} */}
+          <Route path='*'>
+            <Redirect to='/' />
+          </Route>
+          </Switch>
       </div>
+
         )
       }}
       </SidebarContext.Consumer>

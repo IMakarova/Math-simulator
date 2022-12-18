@@ -1,6 +1,7 @@
-import React, { PureComponent, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { add, sub, mul, div } from '../Operations';
 import SidebarContext from '../../../../context/sidebar-context';
+import Answer from '../Answer';
 
 // class Operation extends PureComponent {
 //     constructor(props) {
@@ -70,10 +71,14 @@ console.log('Enter pressed');
 
   // render() {
     return (
-      <SidebarContext.Consumer>
-      {(context) => {
-        return (
+      // <SidebarContext.Consumer>
+      // {(context) => {
+      //   return (
         <>
+        <div>Test</div>
+        <div id='operation-container' className={`operations ${context.isRight ? "rightAnswer" : ""} 
+        ${context.isWrong ? "wrongAnswer" : ""}`}>
+        <div id={context.operation} className="operation">
         <div>{formula()}</div>
         <form onSubmit={enterClick}>
         <input type="text" pattern="[0-9]*" id = 'result' placeholder='result' 
@@ -81,10 +86,14 @@ console.log('Enter pressed');
         {!context.readOnly ? <button type='submit' id={context.button === 'check' ? "check-result" : "next"} 
         onClick={context.button === 'check' ? checkClick : nextClick}>{context.button}</button> : <></>}
         </form>
+        <div id="comment">{context.comment}</div>
+        <>{context.isWrong &&<Answer />}</>
+        </div>
+        </div>
         </>
-                )
-              }}
-              </SidebarContext.Consumer>
+              //   )
+              // }}
+              // </SidebarContext.Consumer>
   )
 // }
 
