@@ -1,10 +1,27 @@
-import React, { PureComponent, useContext } from 'react';
+import React, { PureComponent, useContext, useEffect } from 'react';
 import { add, sub, mul, div, mixedOperation } from '../Operations';
 import SidebarContext from '../../../../context/sidebar-context';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const SidebarButtons = () => {
   const context = useContext(SidebarContext);
+  const location = useLocation();
+  useEffect(() => {
+    const operation = location.pathname.replace('/', '');
+    switch(operation) {
+      case 'quiz': {
+        return context.quizAction(mixedOperation(), operation.toUpperCase());
+      }
+      case 'best-results': {
+        context.resultsAction(operation);
+      }
+      case 'addition': {
+        context.operationAction(add(), operation, operation);
+      }
+    }
+
+    console.log(location);
+  }, [])
 
   const additionHandler = (e) => {
     context.operationAction(add(), e.target.textContent.toLowerCase(), e.target.textContent);

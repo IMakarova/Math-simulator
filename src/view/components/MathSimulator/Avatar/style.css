@@ -6,8 +6,8 @@
     border-radius: 18px;
     /* margin-left: 20px; */
     align-items: center;
-    position: absolute;
-    right: 100px;
+    /* position: absolute;
+    right: 100px; */
     display: flex;
     flex-direction: row-reverse;
     overflow: hidden;
@@ -33,6 +33,13 @@
     padding: 0 10px;
     margin-right: 20px;
 }
-#avatar:hover > #username{
+#user:hover > #username{
     display: block;
+}
+#user{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    right: 100px;
+    align-items: center;
 }

@@ -4,7 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 // import Timer from '../Timer';
 import Quiz from '../Quiz';
 import Operation from '../Operation';
-import Answer from '../Answer';
+// import Answer from '../Answer';
 import ResultsTable from '../ResultsTable';
 import SidebarContext from '../../../../context/sidebar-context';
 import AuthContext from '../../../../context/auth-context';
@@ -44,16 +44,30 @@ class Main extends PureComponent {
         
         {/* <div id={context.isQuiz ? "quiz-container" : "operation-container"} className={`operations ${context.isRight ? "rightAnswer" : ""} 
         ${context.isWrong ? "wrongAnswer" : ""}`}> */}
-
-
+            <Route path={ ['/addition', '/substraction'] }>
+              <Operation />
+            </Route>
+            {/* <Route path='/substraction'>
+              <Operation />
+            </Route> */}
+            <Route path='/multiplication'>
+              <Operation />
+            </Route>
+            <Route path='/division'>
+              <Operation />
+            </Route>
           {/* <>{context.isQuiz &&  */}
               <Route path='/quiz'>
                 <Quiz />
               </Route>
             {/* // }</> */}
-            <Route path='/:context.operation'>
-            <Operation />
-          </Route>
+            <Route path='/best-results'>
+              <ResultsTable />
+            </Route>
+            <Route path='*'>
+              <Redirect to='/' />
+            </Route>
+          </Switch>
           <>{
           // !context.isQuiz && 
           // <><div id={context.operation} className="operation">
@@ -73,10 +87,7 @@ class Main extends PureComponent {
           {/* </div> */}
           {/* </>}</> */}
           {/* {context.isTable && <ResultsTable />} */}
-          <Route path='*'>
-            <Redirect to='/' />
-          </Route>
-          </Switch>
+
       </div>
 
         )

@@ -13,9 +13,9 @@ const Header = () => {
   const loginContext = useContext(AuthContext);
 
   const homeClick = (e) => {
-    console.log(context.isText);
+    // console.log(context.isText);
     context.startPageAction();
-    console.log(context.isText);
+    // console.log(context.isText);
   };
 
   return (

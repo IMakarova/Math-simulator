@@ -15,9 +15,11 @@ const Avatar = () => {
     <AuthContext.Consumer>
       {(context) => {
         return (
-          <div id="avatar">
-            <img alt='avatar' src={getUrl()}></img>
+          <div id='user'>
             <div id="username">{context.username}</div>
+            <div id="avatar">
+              <img alt='avatar' src={getUrl()}></img>
+            </div>
           </div>
         );
       }}

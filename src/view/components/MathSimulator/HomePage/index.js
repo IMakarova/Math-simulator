@@ -7,7 +7,7 @@ class HomePage extends PureComponent {
 
     render() {
         return (
-        <NavLink to='/'>
+        <NavLink activeClassName='active-home' to='/'>
             <img alt='home' onClick={this.props.homeClick} id='home' src={home}></img>
         </NavLink>
         )

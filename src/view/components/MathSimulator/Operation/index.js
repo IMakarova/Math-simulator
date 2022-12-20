@@ -74,8 +74,6 @@ console.log('Enter pressed');
       // <SidebarContext.Consumer>
       // {(context) => {
       //   return (
-        <>
-        <div>Test</div>
         <div id='operation-container' className={`operations ${context.isRight ? "rightAnswer" : ""} 
         ${context.isWrong ? "wrongAnswer" : ""}`}>
         <div id={context.operation} className="operation">
@@ -90,7 +88,6 @@ console.log('Enter pressed');
         <>{context.isWrong &&<Answer />}</>
         </div>
         </div>
-        </>
               //   )
               // }}
               // </SidebarContext.Consumer>
