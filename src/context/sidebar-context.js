@@ -205,11 +205,13 @@ export const SidebarContextProvider = (props) => {
     defaultState
   );
 
-  const operationAction = (arr, operation, header) =>
+  const operationAction = (arr, operation, header) => {
     dispatchSidebarAction({
       type: 'OPERATION',
       payload: { arr, operation, header },
     });
+    console.log(`from operationAction with operation ${operation}`);
+  }
   const nextOperationAction = (arr) =>
     dispatchSidebarAction({ type: 'NEXT_OPERATION', payload: { arr } });
 
@@ -234,8 +236,10 @@ export const SidebarContextProvider = (props) => {
   const bestResultAction = () => dispatchSidebarAction({ type: 'BEST_RESULT' });
   const negativeResultAction = () => dispatchSidebarAction({ type: 'NEGATIVE_RESULT' });
 
-  const resultsAction = (header) =>
+  const resultsAction = (header) => {
     dispatchSidebarAction({ type: 'RESULTS', payload: { header } });
+    console.log('from resultsAction');
+  }
 
   const getResultAction = (result) =>
     dispatchSidebarAction({ type: 'GET_RESULT', payload: { result } });

@@ -15,11 +15,11 @@ if(typeof composeWithDevTools === 'function') {
 }
 
 const store = createStore(
-    authReducer,
-    // { posts: {} },
+    authReducer, 
+    {} , 
     composeEnhancers(applyMiddleware(...middleware))
 );
 
-// window.store = store;
+window.store = store;
 
 export default store;

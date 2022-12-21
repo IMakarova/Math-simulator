@@ -10,13 +10,24 @@ const SidebarButtons = () => {
     const operation = location.pathname.replace('/', '');
     switch(operation) {
       case 'quiz': {
-        return context.quizAction(mixedOperation(), operation.toUpperCase());
+        return context.quizAction(mixedOperation(), operation);
       }
       case 'best-results': {
-        context.resultsAction(operation);
+        const header = operation.replace('-', ' ');
+        console.log(header)
+        context.resultsAction('header');
       }
       case 'addition': {
         context.operationAction(add(), operation, operation);
+      }
+      case 'substraction': {
+        context.operationAction(sub(), operation, operation);
+      }
+      case 'multiplication': {
+        context.operationAction(mul(), operation, operation);
+      }
+      case 'division': {
+        context.operationAction(div(), operation, operation.replace('-', ' '));
       }
     }
 

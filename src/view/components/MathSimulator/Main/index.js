@@ -7,21 +7,15 @@ import Operation from '../Operation';
 // import Answer from '../Answer';
 import ResultsTable from '../ResultsTable';
 import SidebarContext from '../../../../context/sidebar-context';
-import AuthContext from '../../../../context/auth-context';
+// import AuthContext from '../../../../context/auth-context';
 
 class Main extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      props,
-    };
-  }
   
   render() {
     return (
-      <AuthContext.Consumer>
-      {(context) => {
-        return (
+      // <AuthContext.Consumer>
+      // {(context) => {
+      //   return (
       <SidebarContext.Consumer>
       {(context) => {
         return (
@@ -44,18 +38,18 @@ class Main extends PureComponent {
         
         {/* <div id={context.isQuiz ? "quiz-container" : "operation-container"} className={`operations ${context.isRight ? "rightAnswer" : ""} 
         ${context.isWrong ? "wrongAnswer" : ""}`}> */}
-            <Route path={ ['/addition', '/substraction'] }>
+            <Route path={ ['/addition', '/substraction', '/multiplication', '/division'] }>
               <Operation />
             </Route>
             {/* <Route path='/substraction'>
               <Operation />
             </Route> */}
-            <Route path='/multiplication'>
+            {/* <Route path='/multiplication'>
               <Operation />
             </Route>
             <Route path='/division'>
               <Operation />
-            </Route>
+            </Route> */}
           {/* <>{context.isQuiz &&  */}
               <Route path='/quiz'>
                 <Quiz />
@@ -93,9 +87,9 @@ class Main extends PureComponent {
         )
       }}
       </SidebarContext.Consumer>
-              )
-            }}
-            </AuthContext.Consumer>
+            //   )
+            // }}
+            // </AuthContext.Consumer>
     );
   }
 }

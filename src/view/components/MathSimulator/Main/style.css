@@ -52,6 +52,9 @@ h2{
     margin-left: 40px;
     margin-top: 20px;
 }
+h2::first-letter{
+    text-transform: capitalize;
+}
 span{
     padding-left: 5px;
     font-weight: bold;
