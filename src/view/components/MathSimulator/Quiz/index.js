@@ -1,4 +1,4 @@
-import React, { PureComponent, useContext, useState} from 'react';
+import React, { useContext, useState} from 'react';
 import LoginLogout from '../LoginLogout';
 import Timer from '../Timer';
 import { mixedOperation } from '../Operations';
@@ -7,46 +7,18 @@ import SidebarContext from '../../../../context/sidebar-context';
 import AuthContext from '../../../../context/auth-context';
 import Confetti from '../Confetti';
 
-// class Quiz extends PureComponent {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       props,
-//       randomArr: [],
-//       score: 0,
-
-//     }
-//   }
 const Quiz = () => {
   const context = useContext(SidebarContext);
-  const loginContext = useContext(AuthContext);
+  // const loginContext = useContext(AuthContext);
   const [randomArr, setRandomArr] = useState([]);
-  // const [score, setScore] = useState(0);
-// componentDidMount() {
-//   console.log(this.state)
-// }
+
   const formula = () => {
-    // console.log(this.state.randomArr);
     return `${randomArr[0]} ${randomArr[3]} ${randomArr[1]} =`;
   }
 
     const startClick = (e) => {    
-      // this.props.changeResult('');
-      // this.props.switchTimerIsStart(false);
-      // this.props.switchTimeIsOver(false);
-      // this.props.switchQuizIsStart(false);
-    // this.props.switchQuizIsStart(true);
-    // this.props.changeScore(0);
-        // this.props.switchTimerIsStart(true);
-        // console.log(this.props.state.timerIsStart, this.props.state.isQuiz);
-    // this.setState({isStart: true});
-    // this.props.changeArr(mixedOperation());
     context.startQuizAction();
-
-    // this.setState({randomArr: this.props.state.arr[Math.floor(Math.random() * this.props.state.arr.length)]});
     setRandomArr(context.arr[Math.floor(Math.random() * context.arr.length)]);
-    // console.log(randomArr, context.arr);
-    // this.props.switchBestScore(false);
   };
 
   const checkClick = (e) => {
@@ -54,21 +26,13 @@ const Quiz = () => {
     
     const userResult = document.getElementById('result').value;
     if (Number(userResult) === randomArr[2]) {
-      // this.props.changeArr(mixedOperation());
-      // this.setState({randomArr: this.props.state.arr[Math.floor(Math.random() * this.props.state.arr.length)]});
-      // this.props.changeResult('');
-      // this.props.switchIsWrong(false);
-      // this.props.changeScore(this.props.state.score + 2);
-      // console.log(this.props.state.score);
-      console.log(context.score)
+      // console.log(context.score)
       setRandomArr(context.arr[Math.floor(Math.random() * context.arr.length)]);
-      // setScore(score + 2);
       console.log('+2', context.score);
       context.rightQuizAction(context.score + 2, mixedOperation());
     } 
     else {
       context.wrongQuizAction();
-      // this.props.switchIsWrong(true);
     }
 }
 
@@ -79,22 +43,15 @@ console.log('Enter pressed');
 
 const skipClick = (e) => {
   setRandomArr(context.arr[Math.floor(Math.random() * context.arr.length)]);
-  // setScore(score - 1);
+
   context.rightQuizAction(context.score - 1, mixedOperation());
-  // this.props.changeResult('');
-  // this.props.changeArr(mixedOperation());
-  // this.setState({randomArr: this.props.state.arr[Math.floor(Math.random() * this.props.state.arr.length)]});
-  // this.props.switchIsWrong(false);
-  // this.props.changeScore(this.props.state.score - 1);
 }
 
 const setResult = (event) => {
   const result = (event.target.validity.valid) ? event.target.value : context.result;
   context.getResultAction(result);
-    // this.props.changeResult(result);
   }
 
-  // render() {
     return (
       <AuthContext.Consumer>
       {(loginContext) => {

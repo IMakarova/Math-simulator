@@ -16,7 +16,15 @@ if(typeof composeWithDevTools === 'function') {
 
 const store = createStore(
     authReducer, 
-    {} , 
+    // {
+    //     auth: 
+        {
+            isLogin: false,
+            username: '',
+            isLoginModal: false,
+            src: '', 
+        },
+    // }, 
     composeEnhancers(applyMiddleware(...middleware))
 );
 

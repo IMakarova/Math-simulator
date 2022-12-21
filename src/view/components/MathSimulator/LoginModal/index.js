@@ -1,9 +1,25 @@
-import React, { PureComponent, useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.css';
-import AuthContext from '../../../../context/auth-context';
+// import AuthContext from '../../../../context/auth-context';
+import { connect } from 'react-redux';
+import { loginSuccessAction, logoutAction } from '../../../../redux-state/auth/actions';
+import store from '../../../../redux-state/store';
 
-const LoginModal = () => {
-  const context = useContext(AuthContext);
+const mapStateToProps = (state, ownProps) => ({
+  isLogin: state.isLogin,
+  username: state.username,
+  isLoginModal: state.isLoginModal,
+  src: state.src
+});
+
+const mapDispatchToProps = ({
+  loginSuccessAction,
+  logoutAction
+});
+
+
+const LoginModal = ({ loginSuccessAction, logoutAction, isLogin, username, src }) => {
+  // const context = useContext(AuthContext);
   const [enteredUsername, setEnteredUsername] = useState('');
   const [enteredPassword, setEnteredPassword] = useState('');
   const [usernameClass, setUsernameClass] = useState('');
@@ -12,21 +28,24 @@ const LoginModal = () => {
   const generateSrc = () => {
     const url = 'https://robohash.org/' + enteredUsername + '.png?set=set4';
     const urlString = JSON.stringify(url);
-    context.setAvatarAction(urlString);
+    const urlWithoutQuotes = urlString.replaceAll('"', '');
+    console.log(urlString, urlWithoutQuotes)
+    return urlWithoutQuotes;
+    // context.setAvatarAction(urlString);
   };
 
   const userNameChangeHandler = (event) => {
-    console.log()
+    // console.log()
     setUsernameClass('');
     // setEnteredUsername(event.target.value);
-    const username = (event.target.validity.valid) ? event.target.value : enteredUsername;
-    setEnteredUsername(username);
-    console.log(username);
+    const currentUsername = (event.target.validity.valid) ? event.target.value : enteredUsername;
+    setEnteredUsername(currentUsername);
+    // console.log(username);
   }
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-  };
+  // const submitHandler = (event) => {
+  //   event.preventDefault();
+  // };
 
   const loginClick = (event) => {
     event.preventDefault();
@@ -37,14 +56,18 @@ const LoginModal = () => {
       setUsernameClass('');
       setEnteredPassword('');
       setEnteredUsername('');
-      context.loginSuccessAction(enteredUsername);
-      generateSrc();
+      console.log(enteredUsername, generateSrc());
+      loginSuccessAction(enteredUsername, generateSrc());
     }
   };
 
   const closeClick = (event) => {
-    context.logoutAction();
+    logoutAction();
   };
+
+// useEffect(() => {
+//   console.log(isLogin)
+// }, [])
 
   return (
     <div className="login-modal">
@@ -71,4 +94,4 @@ const LoginModal = () => {
   );
 };
 
-export default LoginModal;
+export default connect(mapStateToProps, mapDispatchToProps)(LoginModal);

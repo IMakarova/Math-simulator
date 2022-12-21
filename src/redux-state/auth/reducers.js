@@ -1,6 +1,6 @@
 import { ACTION_TYPES as LOGIN_ACTION_TYPES } from "./constants";
 
-const defaultState = {
+export const defaultState = {
     isLogin: false,
     username: '',
     isLoginModal: false,
@@ -8,7 +8,7 @@ const defaultState = {
 }
 
 const authReducer = (state = defaultState, action) => {
-    const { type, payload } = action;
+    const { type, payload = {} } = action;
 
     switch(type) {
         case LOGIN_ACTION_TYPES.SHOW_LOGIN_MODAL: {
@@ -18,12 +18,13 @@ const authReducer = (state = defaultState, action) => {
             }
         }
         case LOGIN_ACTION_TYPES.LOGIN_SUCCESS: {
+            console.log(payload);
             return {
-                ...state,
+                // ...state,
                 isLogin: true,
                 username: payload.username,
                 isLoginModal: false,
-                src: payload.srs
+                src: payload.src
             }
         }
         case LOGIN_ACTION_TYPES.LOGOUT: {

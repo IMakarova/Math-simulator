@@ -6,11 +6,17 @@ import LoginModal from '../LoginModal';
 import Title from '../Title';
 import './style.css';
 import SidebarContext from '../../../../context/sidebar-context';
-import AuthContext from '../../../../context/auth-context';
+import { connect } from 'react-redux';
+// import AuthContext from '../../../../context/auth-context';
 
-const Header = () => {
+const mapStateToProps = (state, ownProps) => ({
+  isLogin: state.isLogin,
+  isLoginModal: state.isLoginModal,
+});
+
+const Header = ({ isLogin, isLoginModal }) => {
   const context = useContext(SidebarContext);
-  const loginContext = useContext(AuthContext);
+  // const loginContext = useContext(AuthContext);
 
   const homeClick = (e) => {
     // console.log(context.isText);
@@ -22,11 +28,11 @@ const Header = () => {
     <div id="header">
       {!context.isText && <HomePage homeClick={homeClick} />}
       <Title homeClick={homeClick} />
-      {loginContext.isLogin && <Avatar />}
+      {isLogin && <Avatar />}
       <LoginLogout />
-      {loginContext.isLoginModal && <LoginModal />}
+      {isLoginModal && <LoginModal />}
     </div>
   );
 };
 
-export default Header;
+export default connect(mapStateToProps)(Header);

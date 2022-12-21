@@ -210,7 +210,6 @@ export const SidebarContextProvider = (props) => {
       type: 'OPERATION',
       payload: { arr, operation, header },
     });
-    console.log(`from operationAction with operation ${operation}`);
   }
   const nextOperationAction = (arr) =>
     dispatchSidebarAction({ type: 'NEXT_OPERATION', payload: { arr } });
@@ -238,7 +237,6 @@ export const SidebarContextProvider = (props) => {
 
   const resultsAction = (header) => {
     dispatchSidebarAction({ type: 'RESULTS', payload: { header } });
-    console.log('from resultsAction');
   }
 
   const getResultAction = (result) =>

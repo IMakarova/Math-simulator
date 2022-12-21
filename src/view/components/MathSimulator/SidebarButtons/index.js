@@ -13,35 +13,33 @@ const SidebarButtons = () => {
         return context.quizAction(mixedOperation(), operation);
       }
       case 'best-results': {
-        const header = operation.replace('-', ' ');
-        console.log(header)
-        context.resultsAction('header');
+        return context.resultsAction(operation.replace('-', ' '));
       }
       case 'addition': {
-        context.operationAction(add(), operation, operation);
+        return context.operationAction(add(), operation, operation);
       }
       case 'substraction': {
-        context.operationAction(sub(), operation, operation);
+        return context.operationAction(sub(), operation, operation);
       }
       case 'multiplication': {
-        context.operationAction(mul(), operation, operation);
+        return context.operationAction(mul(), operation, operation);
       }
       case 'division': {
-        context.operationAction(div(), operation, operation.replace('-', ' '));
+        return context.operationAction(div(), operation, operation);
       }
     }
 
-    console.log(location);
+
   }, [])
 
   const additionHandler = (e) => {
     context.operationAction(add(), e.target.textContent.toLowerCase(), e.target.textContent);
-    console.log(context);
+    // console.log(context);
     // this.props.changeArr(add());
   };
   const substractionHandler = (e) => {
     context.operationAction(sub(), e.target.textContent.toLowerCase(), e.target.textContent);
-    console.log(context.arr);
+    // console.log(context.arr);
     // this.props.changeArr(sub());
   };
   const multiplicationHandler = (e) => {
@@ -54,13 +52,13 @@ const SidebarButtons = () => {
   };
   const quizHandler = (e) => {
     context.quizAction(mixedOperation(), e.target.textContent);
-    console.log(context.isQuiz, context.quizIsStart, context.arr)
+    // console.log(context.isQuiz, context.quizIsStart, context.arr)
     // this.props.switchIsQuiz(true);
     // this.props.changeArr(mixedOperation());
   };
   const resultsHandler = (e) => {
     context.resultsAction(e.target.textContent);
-    console.log(e.target.textContent);
+    // console.log(e.target.textContent);
     // this.props.switchIsOperation(false);
     // this.props.switchIsTable(true);
   };
