@@ -1,32 +1,33 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import LoginLogout from '../LoginLogout';
 import HomePage from '../HomePage';
 import Avatar from '../Avatar';
 import LoginModal from '../LoginModal';
 import Title from '../Title';
 import './style.css';
-import SidebarContext from '../../../../context/sidebar-context';
+import { startPageAction } from '../../../../redux-state/main/actions'
 import { connect } from 'react-redux';
-// import AuthContext from '../../../../context/auth-context';
 
 const mapStateToProps = (state, ownProps) => ({
-  isLogin: state.isLogin,
-  isLoginModal: state.isLoginModal,
+  isLogin: state.auth.isLogin,
+  isLoginModal: state.auth.isLoginModal,
+  isText: state.main.isText
 });
 
-const Header = ({ isLogin, isLoginModal }) => {
-  const context = useContext(SidebarContext);
-  // const loginContext = useContext(AuthContext);
+const mapDispatchToProps = ({
+  startPageAction,
+});
+
+
+const Header = ({ startPageAction, isLogin, isLoginModal, isText }) => {
 
   const homeClick = (e) => {
-    // console.log(context.isText);
-    context.startPageAction();
-    // console.log(context.isText);
+    startPageAction();
   };
 
   return (
     <div id="header">
-      {!context.isText && <HomePage homeClick={homeClick} />}
+      {!isText && <HomePage homeClick={homeClick} />}
       <Title homeClick={homeClick} />
       {isLogin && <Avatar />}
       <LoginLogout />
@@ -35,4 +36,4 @@ const Header = ({ isLogin, isLoginModal }) => {
   );
 };
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

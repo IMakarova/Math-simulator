@@ -4,11 +4,11 @@ import confetti from 'canvas-confetti';
 import { useEffect } from 'react';
 
 const Confetti = () => {
-//   const confetti = require('canvas-confetti');
-//   confetti.Promise = MyPromise;
+
 useEffect(() => {
     confetti()
 }, [])
+
   const count = 300;
   const defaults = {
     origin: { y: 0.7 },
@@ -45,9 +45,6 @@ useEffect(() => {
     startVelocity: 45,
   });
 
-//   return (
-//     {confetti}
-// )
 };
 
 export default Confetti;

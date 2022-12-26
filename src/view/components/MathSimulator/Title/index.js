@@ -1,25 +1,24 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import './style.css';
-import SidebarContext from '../../../../context/sidebar-context';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-class Title extends PureComponent {
-  
-  render() {
-    return (
-      <SidebarContext.Consumer>
-      {(context) => {
+const mapStateToProps = (state, ownProps) => ({
+  isText: state.main.isText,
+  homeClick: ownProps.homeClick
+});
+
+
+const Title = ({ isText, homeClick }) => {
         return (
-        <>{context.isText ? <h1>Math simulator. Operations within 1000</h1> : 
-        <NavLink to='/' activeClassName='active-home' >
-        <h1 onClick={this.props.homeClick} className='link'>Math simulator. Operations within 1000</h1>
-        </NavLink>
-        }</>
+        <>
+          {isText ? <h1>Math simulator. Operations within 1000</h1> : 
+          <NavLink to='/' activeClassName='active-home' >
+            <h1 onClick={homeClick} className='link'>Math simulator. Operations within 1000</h1>
+          </NavLink>
+          }
+        </>
         )
-      }}
-      </SidebarContext.Consumer>
-    ); 
-  }
 }
 
-export default Title;
+export default connect(mapStateToProps)(Title);

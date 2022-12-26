@@ -1,45 +1,38 @@
-import React, { PureComponent, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import './style.css';
-import SidebarContext from '../../../../context/sidebar-context';
+import { connect } from 'react-redux';
+import { showAnswerAction, nullAnswerAction, wrongAnswerAction } from '../../../../redux-state/main/actions';
 
-// class Answer extends PureComponent {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//         id: 'show-answer',
-//         text: 'Show answer'
-//     }
-// }
-const Answer = () => {
-    const context = useContext(SidebarContext);
+const mapStateToProps = (state, ownProps) => ({
+  arr: state.main.arr,
+});
+
+const mapDispatchToProps = ({
+  showAnswerAction,
+  nullAnswerAction,
+  wrongAnswerAction
+});
+
+const Answer = ({ showAnswerAction, nullAnswerAction, wrongAnswerAction, arr }) => {
     const [id, setId] = useState('show-answer');
     const [text, setText] = useState('Show answer');
     const showAnswerClick = (e) => {
         setId('hide-answer');
         setText('Hide answer');
-    //     this.setState({id: 'hide-answer',
-    // text: 'Hide answer'});
-    context.showAnswerAction(<>Right answer is <span>{context.arr[2]}</span></>);
-    // context.readOnly(true);
+        showAnswerAction(<>Right answer is <span>{arr[2]}</span></>);
     }
 
     const hideAnswerClick = (e) => {
         setId('show-answer');
         setText('Show answer');
-        // this.setState({id: 'show-answer',
-        // text: 'Show answer'});    
-        // context.readOnly(false);
         if (document.getElementById('result').value === '') {
-            context.nullAnswerAction();
+          nullAnswerAction();
           } else {
-            context.wrongAnswerAction();
+            wrongAnswerAction();
           }
     }
 
-    // render() {
         return (<button id={id} className="answer" onClick={id === 'show-answer' ? showAnswerClick : hideAnswerClick}>{text}</button>)
-// }
-
 }
 
-export default Answer;
+export default connect(mapStateToProps, mapDispatchToProps)(Answer);

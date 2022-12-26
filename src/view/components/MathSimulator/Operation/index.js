@@ -1,99 +1,101 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { add, sub, mul, div } from '../Operations';
-import SidebarContext from '../../../../context/sidebar-context';
+// import SidebarContext from '../../../../context/sidebar-context';
 import Answer from '../Answer';
+import { connect } from 'react-redux';
+import { quizAction, resultsAction, operationAction, getResultAction, rightAnswerAction, nullAnswerAction, 
+  wrongAnswerAction, nextOperationAction } from '../../../../redux-state/main/actions';
 
-// class Operation extends PureComponent {
-//     constructor(props) {
-//       super(props);
-//    }
-const Operation = () => {
-  const context = useContext(SidebarContext);
-  const formula = () => `${context.arr[0]} ${context.arr[3]} ${context.arr[1]} =`;
-useEffect(() => {
-  console.log(context.arr);
-})
+const mapStateToProps = (state, ownProps) => ({
+  arr: state.main.arr,
+  header: state.main.header,
+  operation: state.main.operation,
+  result: state.main.result,
+  isRight: state.main.isRight,
+  isWrong: state.main.isWrong,
+  readOnly: state.main.readOnly,
+  button: state.main.button,
+  comment: state.main.comment,
+});
+
+const mapDispatchToProps = ({
+  quizAction,
+  resultsAction,
+  operationAction,
+  getResultAction,
+  rightAnswerAction,
+  nullAnswerAction,
+  wrongAnswerAction,
+  nextOperationAction,
+});
+
+const Operation = ({ getResultAction, rightAnswerAction, nullAnswerAction, wrongAnswerAction, nextOperationAction, 
+  arr, result, isRight, isWrong, operation, readOnly, button, comment }) => {
+  const formula = () => `${arr[0]} ${arr[3]} ${arr[1]} =`;
+
+  useEffect(() => {
+    console.log(arr);
+  })
+
   const checkClick = (e) => {
-
       const userResult = document.getElementById('result').value;
-      if (Number(userResult) === context.arr[2]) {
-        context.rightAnswerAction();
-        // context.isRight(true);
-        // context.isWrong(false);
-        // context.comment('That is right!');
-        // context.button('next');
+      if (Number(userResult) === arr[2]) {
+        rightAnswerAction();
       } else {
-        // context.isWrong(true);
-        // context.isRight(false);
         if (userResult === '') {
-          context.nullAnswerAction();
-          // context.comment('Please, write your answer!');
+          nullAnswerAction();
         } else {
-          context.wrongAnswerAction();
-          // context.comment('That is wrong!');
+          wrongAnswerAction();
         }
       }
   }
+
   const enterClick = (e) => {
     e.preventDefault();
-console.log('Enter pressed');
+    console.log('Enter pressed');
 }
+
   const nextClick = (e) => {
-    // context.isRight(false);
-    // context.comment('');
-    // context.button('check');
-    // context.result('');
-    // let arr = [];
     if (document.getElementById('addition')) {
-      // arr = add();
-      context.nextOperationAction(add());
+      nextOperationAction(add());
 
   }
   if (document.getElementById('substraction')) {
     // arr = sub();
-    context.nextOperationAction(sub());
+    nextOperationAction(sub());
   }
   if (document.getElementById('multiplication')) {
     // arr = mul();
-    context.nextOperationAction(mul());
+    nextOperationAction(mul());
   }
   if (document.getElementById('division')) {
     // arr = div();
-    context.nextOperationAction(div());
+    nextOperationAction(div());
   }
 
   }
 
   const setResult = (event) => {
-  const result = (event.target.validity.valid) ? event.target.value : context.result;
-  context.getResultAction(result);
+  const currentResult = (event.target.validity.valid) ? event.target.value : result;
+  getResultAction(currentResult);
   }
 
-  // render() {
     return (
-      // <SidebarContext.Consumer>
-      // {(context) => {
-      //   return (
-        <div id='operation-container' className={`operations ${context.isRight ? "rightAnswer" : ""} 
-        ${context.isWrong ? "wrongAnswer" : ""}`}>
-        <div id={context.operation} className="operation">
+        <div id='operation-container' className={`operations ${isRight ? "rightAnswer" : ""} 
+        ${isWrong ? "wrongAnswer" : ""}`}>
+        <div id={operation} className="operation">
         <div>{formula()}</div>
         <form onSubmit={enterClick}>
         <input type="text" pattern="[0-9]*" id = 'result' placeholder='result' 
-        onChange={setResult} value={context.result} readOnly = {context.readOnly ? true : false}/>
-        {!context.readOnly ? <button type='submit' id={context.button === 'check' ? "check-result" : "next"} 
-        onClick={context.button === 'check' ? checkClick : nextClick}>{context.button}</button> : <></>}
+        onChange={setResult} value={result} readOnly = {readOnly ? true : false}/>
+        {!readOnly ? <button type='submit' id={readOnly === 'check' ? "check-result" : "next"} 
+        onClick={button === 'check' ? checkClick : nextClick}>{button}</button> : <></>}
         </form>
-        <div id="comment">{context.comment}</div>
-        <>{context.isWrong &&<Answer />}</>
         </div>
+        <div id="comment">{comment}</div>
+        {isWrong &&<Answer />}
         </div>
-              //   )
-              // }}
-              // </SidebarContext.Consumer>
   )
-// }
-
 }
 
-export default Operation;
+export default connect(mapStateToProps, mapDispatchToProps)(Operation);

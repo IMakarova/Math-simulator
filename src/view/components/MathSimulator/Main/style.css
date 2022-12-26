@@ -32,7 +32,7 @@
     background-color: var(--wrong-background);
 }
 #comment{
-    padding: 10px 0 0 20px;
+    padding-top: 10px;
     font-size: 0.85em;
 }
 .wrongAnswer #comment{

@@ -1,66 +1,66 @@
-import React, { PureComponent, useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { add, sub, mul, div, mixedOperation } from '../Operations';
-import SidebarContext from '../../../../context/sidebar-context';
 import { NavLink, useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { quizAction, resultsAction, operationAction } from '../../../../redux-state/main/actions';
 
-const SidebarButtons = () => {
-  const context = useContext(SidebarContext);
+const mapStateToProps = (state, ownProps) => ({
+  arr: state.main.arr,
+  header: state.main.header,
+  operation: state.main.operation,
+});
+
+const mapDispatchToProps = ({
+  quizAction,
+  resultsAction,
+  operationAction,
+});
+
+
+const SidebarButtons = ({ operationAction, quizAction, resultsAction }) => {
   const location = useLocation();
   useEffect(() => {
     const operation = location.pathname.replace('/', '');
     switch(operation) {
       case 'quiz': {
-        return context.quizAction(mixedOperation(), operation);
+        return quizAction(mixedOperation(), operation);
       }
       case 'best-results': {
-        return context.resultsAction(operation.replace('-', ' '));
+        return resultsAction(operation.replace('-', ' '));
       }
       case 'addition': {
-        return context.operationAction(add(), operation, operation);
+        return operationAction(add(), operation, operation);
       }
       case 'substraction': {
-        return context.operationAction(sub(), operation, operation);
+        return operationAction(sub(), operation, operation);
       }
       case 'multiplication': {
-        return context.operationAction(mul(), operation, operation);
+        return operationAction(mul(), operation, operation);
       }
       case 'division': {
-        return context.operationAction(div(), operation, operation);
+        return operationAction(div(), operation, operation);
       }
     }
-
-
   }, [])
 
   const additionHandler = (e) => {
-    context.operationAction(add(), e.target.textContent.toLowerCase(), e.target.textContent);
-    // console.log(context);
-    // this.props.changeArr(add());
+    operationAction(add(), e.target.textContent.toLowerCase(), e.target.textContent);
+    console.log('add');
   };
   const substractionHandler = (e) => {
-    context.operationAction(sub(), e.target.textContent.toLowerCase(), e.target.textContent);
-    // console.log(context.arr);
-    // this.props.changeArr(sub());
+    operationAction(sub(), e.target.textContent.toLowerCase(), e.target.textContent);
   };
   const multiplicationHandler = (e) => {
-    context.operationAction(mul(), e.target.textContent.toLowerCase(), e.target.textContent);
-    // this.props.changeArr(mul());
+    operationAction(mul(), e.target.textContent.toLowerCase(), e.target.textContent);
   };
   const divisionHandler = (e) => {
-    context.operationAction(div(), e.target.textContent.toLowerCase(), e.target.textContent);
-    // this.props.changeArr(div());
+    operationAction(div(), e.target.textContent.toLowerCase(), e.target.textContent);
   };
   const quizHandler = (e) => {
-    context.quizAction(mixedOperation(), e.target.textContent);
-    // console.log(context.isQuiz, context.quizIsStart, context.arr)
-    // this.props.switchIsQuiz(true);
-    // this.props.changeArr(mixedOperation());
+    quizAction(mixedOperation(), e.target.textContent);
   };
   const resultsHandler = (e) => {
-    context.resultsAction(e.target.textContent);
-    // console.log(e.target.textContent);
-    // this.props.switchIsOperation(false);
-    // this.props.switchIsTable(true);
+    resultsAction(e.target.textContent);
   };
 
   const sidebarButtons = [
@@ -90,25 +90,14 @@ const SidebarButtons = () => {
     },
   ];
 
-  // render() {
-  return (
-    <SidebarContext.Consumer>
-      {(context) => {
-        return sidebarButtons.map(({ label, handler }) => {
+  return sidebarButtons.map(({ label, handler }) => {
           return (
-            // <li>
             <NavLink activeClassName='active' to={`/${label.toLowerCase().replace(' ', '-')}`} 
               className={`sideBarButton ${label.toLowerCase().replace(' ', '-')}`} onClick={handler} key={label}>
               {label}
             </NavLink>
-            // </li>
           );
         });
-      }}
-    </SidebarContext.Consumer>
-  );
 };
 
-// }
-
-export default SidebarButtons;
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarButtons);

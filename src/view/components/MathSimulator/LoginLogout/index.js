@@ -4,14 +4,11 @@ import './style.css';
 import { connect } from 'react-redux';
 import { showLoginModalAction, logoutAction } from '../../../../redux-state/auth/actions';
 // import { bindActionCreators } from 'redux';
-// import store from '../../../../redux-state/store';
+import store from '../../../../redux-state/store';
 // import { defaultState } from '../../../../redux-state/auth/reducers'
 
 const mapStateToProps = (state, ownProps) => ({
-  isLogin: state.isLogin,
-  // username: state.auth.username,
-  // isLoginModal: state.auth.isLoginModal,
-  // src: state.auth.src
+  isLogin: state.auth.isLogin,
 });
 
 // const mapDispatchToProps1 = (dispatch) => ({
@@ -31,19 +28,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const LoginLogout = ({ isLogin, showLoginModalAction, logoutAction }) => {
-  // const context = useContext(AuthContext);
-
-useEffect(() => {
-  // console.log(store)
-}, [])
 
   const loginHandler = (event) => {
-    // context.showLoginAction();
+    console.log(store)
     showLoginModalAction();
   };
 
   const logoutHandler = (event) => {
-    // context.logoutAction();
     logoutAction();
   };
 
@@ -55,4 +46,4 @@ useEffect(() => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginLogout);
-// export default LoginLogout;
+

@@ -3,13 +3,13 @@ import './style.css';
 // import AuthContext from '../../../../context/auth-context';
 import { connect } from 'react-redux';
 import { loginSuccessAction, logoutAction } from '../../../../redux-state/auth/actions';
-import store from '../../../../redux-state/store';
+// import store from '../../../../redux-state/store';
 
 const mapStateToProps = (state, ownProps) => ({
-  isLogin: state.isLogin,
-  username: state.username,
-  isLoginModal: state.isLoginModal,
-  src: state.src
+  isLogin: state.auth.isLogin,
+  username: state.auth.username,
+  isLoginModal: state.auth.isLoginModal,
+  src: state.auth.src
 });
 
 const mapDispatchToProps = ({
@@ -19,7 +19,6 @@ const mapDispatchToProps = ({
 
 
 const LoginModal = ({ loginSuccessAction, logoutAction, isLogin, username, src }) => {
-  // const context = useContext(AuthContext);
   const [enteredUsername, setEnteredUsername] = useState('');
   const [enteredPassword, setEnteredPassword] = useState('');
   const [usernameClass, setUsernameClass] = useState('');
@@ -31,21 +30,13 @@ const LoginModal = ({ loginSuccessAction, logoutAction, isLogin, username, src }
     const urlWithoutQuotes = urlString.replaceAll('"', '');
     console.log(urlString, urlWithoutQuotes)
     return urlWithoutQuotes;
-    // context.setAvatarAction(urlString);
   };
 
   const userNameChangeHandler = (event) => {
-    // console.log()
     setUsernameClass('');
-    // setEnteredUsername(event.target.value);
     const currentUsername = (event.target.validity.valid) ? event.target.value : enteredUsername;
     setEnteredUsername(currentUsername);
-    // console.log(username);
   }
-
-  // const submitHandler = (event) => {
-  //   event.preventDefault();
-  // };
 
   const loginClick = (event) => {
     event.preventDefault();

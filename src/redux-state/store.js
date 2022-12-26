@@ -1,7 +1,13 @@
-import { applyMiddleware, createStore, compose } from "redux";
-import authReducer from "./auth/reducers";
+import { applyMiddleware, createStore, compose, combineReducers } from "redux";
+// import { configureStore } from '@reduxjs/toolkit'
+// import authReducer from "./auth/reducers";
+import * as reducers from './reducers';
 import { createLogger } from "redux-logger";
 import thunk from "redux-thunk";
+
+const rootReducer = combineReducers({
+    ...reducers
+})
 
 const middleware = [
     thunk,
@@ -15,19 +21,49 @@ if(typeof composeWithDevTools === 'function') {
 }
 
 const store = createStore(
-    authReducer, 
-    // {
-    //     auth: 
+    rootReducer, 
+    {
+        auth: 
         {
             isLogin: false,
             username: '',
             isLoginModal: false,
             src: '', 
         },
-    // }, 
+        main:
+        {
+            header: 'How to start?',
+            isText: true,
+            isOperation: false,
+            isRight: false,
+            isWrong: false,
+            comment: null,
+            button: 'check',
+            result: '',
+            readOnly: false,
+            isQuiz: false,
+            quizIsStart: false,
+            isTable: false,
+            timerIsStart: false,
+            timeIsOver: false,
+            arr: [],
+            operation: null,
+            score: 0,
+            bestScore: false,
+        }
+    }, 
     composeEnhancers(applyMiddleware(...middleware))
 );
 
 window.store = store;
+
+// const store = configureStore({
+//     reducer:
+//     {
+//         auth: authReducer
+//     }
+// })
+
+// window.store = store;
 
 export default store;
