@@ -23,10 +23,18 @@ const BestResults = ({ username, isLogin }) => {
 
 
 const sortTable = () => {
-const sortedTable = Object.entries(localStorage)
+  let bestResults;
+  try {
+    bestResults = JSON.parse(localStorage.getItem('bestResults'));
+  } catch (e) {}
+
+  if (!bestResults) return {};
+
+  console.warn('bestResults', bestResults)
+  const sortedTable = Object.entries(bestResults)
     .sort(([,a],[,b]) => a-b)
     .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
-return sortedTable;
+  return sortedTable;
 }
 
 const tableOfResults = () => {

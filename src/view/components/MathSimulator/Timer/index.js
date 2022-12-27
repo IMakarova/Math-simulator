@@ -48,14 +48,18 @@ const Timer = ({ endTimerAction, startTimerAction, negativeResultAction, bestRes
             negativeResultAction();
             console.log('negativeResultAction')
           }
-          if(localStorage.getItem(username) && score > localStorage.getItem(username)) {
-            bestResultAction();
-            // console.log('bestResultAction')
-           }
-          localStorage.setItem(username, 
-            localStorage.getItem(username) > score ? localStorage.getItem(username) : 
-            score > 0 ? score : 0);
-            // console.log(localStorage.getItem(username));
+
+        let currentBestResult
+        try {
+          currentBestResult = JSON.parse(localStorage.getItem('bestResults'));
+        } catch (e) {}
+
+        if(currentBestResult && currentBestResult[username] && score > currentBestResult[username]) {
+          bestResultAction();
+        }
+
+        const newBestResults = { ...currentBestResult, [username]: score > 0 ? score : 0 };
+        localStorage.setItem('bestResults', JSON.stringify(newBestResults));
       }
   }, [timeLeft])
 
