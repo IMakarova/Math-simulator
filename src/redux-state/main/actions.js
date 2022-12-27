@@ -85,8 +85,8 @@ export const getResultAction = (header, arr) => (dispatch, getState) => {
   })
 };
 
-export const startPageAction = () => (dispatch, getState) => {
-  dispatch({ type: MAIN_ACTION_TYPES.START_PAGE })
-};
+// export const startPageAction = () => (dispatch, getState) => {
+//   dispatch({ type: MAIN_ACTION_TYPES.START_PAGE })
+// };
 
 

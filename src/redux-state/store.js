@@ -33,7 +33,7 @@ const store = createStore(
         main:
         {
             header: 'How to start?',
-            isText: true,
+            // isText: true,
             isOperation: false,
             isRight: false,
             isWrong: false,

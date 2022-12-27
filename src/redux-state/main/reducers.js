@@ -3,8 +3,8 @@ import { ACTION_TYPES as MAIN_ACTION_TYPES } from "./constants";
 
 
 export const defaultState = {
-    header: 'How to start?',
-    isText: true,
+    header: '',
+    // isText: true,
     isOperation: false,
     isRight: false,
     isWrong: false,
@@ -32,7 +32,7 @@ const operationsReducer = (state = defaultState, action) => {
                 ...state,
                     header: payload.header,
                     isOperation: true,
-                    isText: false,
+                    // isText: false,
                     arr: payload.arr,
                     operation: payload.operation,
                     isQuiz: false,
@@ -156,7 +156,7 @@ const operationsReducer = (state = defaultState, action) => {
             return {
                 ...state,
                 header: payload.header,
-                isText: false,
+                // isText: false,
                 isOperation: false,
                 isWrong: false,
                 isQuiz: false,
@@ -170,9 +170,9 @@ const operationsReducer = (state = defaultState, action) => {
                 result: payload.result,
             }
         }
-        case MAIN_ACTION_TYPES.START_PAGE: {
-            return defaultState
-        }
+        // case MAIN_ACTION_TYPES.START_PAGE: {
+        //     return defaultState
+        // }
         default: return state;  
     }
 

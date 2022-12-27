@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import Quiz from '../Quiz';
 import Operation from '../Operation';
 import BestResults from '../BestResults';
@@ -12,10 +12,11 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const Main = ({ header }) => {
-  
+  const location = useLocation(); 
+
     return (
         <div id="main">
-          <h2>{header}</h2>
+          <h2>{ location.pathname === '/' ? 'How to start?' : header }</h2>
             <Switch>
               <Route path='/' exact>
                 <div id="start-text"><p>Choose preferable math operation from the list on the left to start practicing your skills.</p></div>

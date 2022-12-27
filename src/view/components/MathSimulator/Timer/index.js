@@ -16,7 +16,7 @@ const mapDispatchToProps = ({
 });
 
 const Timer = ({ endTimerAction, startTimerAction, negativeResultAction, bestResultAction, score, username }) => {
-  const [timeLeft, setTimeLeft] = useState(70);
+  const [timeLeft, setTimeLeft] = useState(20);
   const [min, setMin] = useState (0);
   const [sec, setSec] = useState (0);
   const timer = useRef(null);

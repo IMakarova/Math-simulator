@@ -1,34 +1,40 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import LoginLogout from '../LoginLogout';
 import HomePage from '../HomePage';
 import Avatar from '../Avatar';
 import LoginModal from '../LoginModal';
 import Title from '../Title';
 import './style.css';
-import { startPageAction } from '../../../../redux-state/main/actions'
+// import { startPageAction } from '../../../../redux-state/main/actions'
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state, ownProps) => ({
   isLogin: state.auth.isLogin,
   isLoginModal: state.auth.isLoginModal,
-  isText: state.main.isText
+  // isText: state.main.isText
 });
 
-const mapDispatchToProps = ({
-  startPageAction,
-});
+// const mapDispatchToProps = ({
+//   startPageAction,
+// });
 
 
-const Header = ({ startPageAction, isLogin, isLoginModal, isText }) => {
-
-  const homeClick = (e) => {
-    startPageAction();
-  };
+const Header = ({ isLogin, isLoginModal }) => {
+  const location = useLocation();
+console.log(location.pathname)
+  // const homeClick = (e) => {
+  //   // startPageAction();
+  // };
 
   return (
     <div id="header">
-      {!isText && <HomePage homeClick={homeClick} />}
-      <Title homeClick={homeClick} />
+      {location.pathname !== '/' && <HomePage 
+      // homeClick={homeClick} 
+      />}
+      <Title 
+      // homeClick={homeClick} 
+      />
       {isLogin && <Avatar />}
       <LoginLogout />
       {isLoginModal && <LoginModal />}
@@ -36,4 +42,4 @@ const Header = ({ startPageAction, isLogin, isLoginModal, isText }) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);
