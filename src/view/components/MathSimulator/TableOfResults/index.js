@@ -1,5 +1,5 @@
 // import React, { useContext } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -8,27 +8,31 @@ const mapStateToProps = (state, ownProps) => ({
   });
 
 const TableOfResults = ({ isLogin, username }) => {
-  useEffect(() => {
-    tableOfResults();
-  }, [isLogin])
+  // useEffect(() => {
+  //   tableOfResults;
+  // }, [isLogin])
 
-
+const bestResults = useMemo(() => {
+  let results;
+  try {
+    results = JSON.parse(localStorage.getItem('bestResults'));
+  } catch (e) {}
+  if (!results) return {};
+  return results
+}, [])
 
 const sortTable = () => {
-    let bestResults;
-    try {
-      bestResults = JSON.parse(localStorage.getItem('bestResults'));
-    } catch (e) {}
-    if (!bestResults) return {};
+    
 const sortedTable = Object.entries(bestResults)
     .sort((firstArray, secondArray) => secondArray[1] - firstArray[1])
 return sortedTable;
 }
 
-const tableOfResults = () => {
-console.log(Object.entries(sortTable()).slice(0, 10))
+
+const tableOfResults = useMemo(() => {
+// console.log(Object.entries(sortTable()).slice(0, 10))
   // const sortedTableTopTen = Object.entries(sortTable()).slice(0, 10);
-  const sortedTableTopTen = sortTable().slice(0, 10);
+  const sortedTableTopTen = sortTable().slice(0, 5);
 
   const table = document.getElementById('results-table');
   console.log(sortedTableTopTen);
@@ -62,14 +66,20 @@ console.log(Object.entries(sortTable()).slice(0, 10))
   //   outsideRow.innerHTML = `<div className='username'>${username}</div><div>${localStorage.getItem(username)}</div>`;
   //   table.append(outsideRow);
   //     }
-}
+}, [username])
 
-        return (tableOfResults().map(([user, score]) =>  { return (
-              <div id={user} className='row'>
+        return (
+          <>
+          {tableOfResults.map(([user, score]) => (
+              <div id={user} className={`row ${user === username ? 'current' : ''}`}>
                 <div className='username'>{user}</div><div>{score}</div>
               </div>
-          );
-        })
+          )
+        )}
+                  {username && !tableOfResults.includes(username) && <div className='row outside'>
+                    <div className='username'>{username}</div><div>{bestResults[username]}</div>
+                    </div>}
+                  </> 
         )
 }
 

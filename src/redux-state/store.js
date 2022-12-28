@@ -33,7 +33,6 @@ const store = createStore(
         main:
         {
             header: 'How to start?',
-            // isText: true,
             isOperation: false,
             isRight: false,
             isWrong: false,
@@ -56,14 +55,5 @@ const store = createStore(
 );
 
 window.store = store;
-
-// const store = configureStore({
-//     reducer:
-//     {
-//         auth: authReducer
-//     }
-// })
-
-// window.store = store;
 
 export default store;
