@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
 import { add, sub, mul, div } from '../Operations';
+import { useLocation } from 'react-router-dom';
+
 // import SidebarContext from '../../../../context/sidebar-context';
 import Answer from '../Answer';
 import { connect } from 'react-redux';
-import { quizAction, resultsAction, operationAction, getResultAction, rightAnswerAction, nullAnswerAction, 
+import { getResultAction, rightAnswerAction, nullAnswerAction, 
   wrongAnswerAction, nextOperationAction } from '../../../../redux-state/main/actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  arr: state.main.arr,
-  header: state.main.header,
-  operation: state.main.operation,
+  numbers: state.main.numbers,
+  operationMark: state?.main?.operationMark,
+  // operation: state.main.operation,
   result: state.main.result,
   isRight: state.main.isRight,
   isWrong: state.main.isWrong,
@@ -19,9 +21,6 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = ({
-  quizAction,
-  resultsAction,
-  operationAction,
   getResultAction,
   rightAnswerAction,
   nullAnswerAction,
@@ -30,16 +29,19 @@ const mapDispatchToProps = ({
 });
 
 const Operation = ({ getResultAction, rightAnswerAction, nullAnswerAction, wrongAnswerAction, nextOperationAction, 
-  arr, result, isRight, isWrong, operation, readOnly, button, comment }) => {
-  const formula = () => `${arr[0]} ${arr[3]} ${arr[1]} =`;
+  numbers, operationMark, result, isRight, isWrong, readOnly, button, comment }) => {
+    console.log(numbers[0])
+  // const formula = () => `${numbers[0]} ${operationMark} ${numbers[1]} =`;
+  const location = useLocation();
+// const operation = location.replace('/', '');
 
   useEffect(() => {
-    console.log(arr);
+    console.log(numbers);
   })
 
   const checkClick = (e) => {
       const userResult = document.getElementById('result').value;
-      if (Number(userResult) === arr[2]) {
+      if (Number(userResult) === numbers[2]) {
         rightAnswerAction();
       } else {
         if (userResult === '') {
@@ -56,20 +58,17 @@ const Operation = ({ getResultAction, rightAnswerAction, nullAnswerAction, wrong
 }
 
   const nextClick = (e) => {
-    if (document.getElementById('addition')) {
-      nextOperationAction(add());
 
+    if (location.pathname === '/addition') {
+      nextOperationAction(add());
   }
-  if (document.getElementById('substraction')) {
-    // arr = sub();
+  if (location.pathname === '/substraction') {
     nextOperationAction(sub());
   }
-  if (document.getElementById('multiplication')) {
-    // arr = mul();
+  if (location.pathname === '/multiplication') {
     nextOperationAction(mul());
   }
-  if (document.getElementById('division')) {
-    // arr = div();
+  if (location.pathname === '/division') {
     nextOperationAction(div());
   }
 
@@ -83,8 +82,8 @@ const Operation = ({ getResultAction, rightAnswerAction, nullAnswerAction, wrong
     return (
         <div id='operation-container' className={`operations ${isRight ? "rightAnswer" : ""} 
         ${isWrong ? "wrongAnswer" : ""}`}>
-        <div id={operation} className="operation">
-        <div>{formula()}</div>
+        <div id={location.pathname.replace('/', '')} className="operation">
+        {/* <div>{formula()}</div> */}
         <form onSubmit={enterClick}>
         <input type="text" pattern="[0-9]*" id = 'result' placeholder='result' 
         onChange={setResult} value={result} readOnly = {readOnly ? true : false}/>
@@ -92,7 +91,7 @@ const Operation = ({ getResultAction, rightAnswerAction, nullAnswerAction, wrong
         onClick={button === 'check' ? checkClick : nextClick}>{button}</button> : <></>}
         </form>
         </div>
-        <div id="comment">{comment}</div>
+        <div id="comment">{typeof comment === 'number' ? <>Right answer is <span>{comment}</span></> : comment}</div>
         {isWrong &&<Answer />}
         </div>
   )

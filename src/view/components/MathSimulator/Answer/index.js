@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { showAnswerAction, nullAnswerAction, wrongAnswerAction } from '../../../../redux-state/main/actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  arr: state.main.arr,
+  numbers: state.main.numbers,
 });
 
 const mapDispatchToProps = ({
@@ -13,13 +13,14 @@ const mapDispatchToProps = ({
   wrongAnswerAction
 });
 
-const Answer = ({ showAnswerAction, nullAnswerAction, wrongAnswerAction, arr }) => {
+const Answer = ({ showAnswerAction, nullAnswerAction, wrongAnswerAction, numbers }) => {
     const [id, setId] = useState('show-answer');
     const [text, setText] = useState('Show answer');
     const showAnswerClick = (e) => {
         setId('hide-answer');
         setText('Hide answer');
-        showAnswerAction(<>Right answer is <span>{arr[2]}</span></>);
+        console.log(typeof numbers[2] === 'number')
+        showAnswerAction(numbers[2]);
     }
 
     const hideAnswerClick = (e) => {

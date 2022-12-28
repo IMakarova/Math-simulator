@@ -2,13 +2,7 @@ import React, { PureComponent } from 'react';
 import './style.css';
 
 class Footer extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      props,
-    }
 
-}
     render() {
         return (
         <div id="footer">

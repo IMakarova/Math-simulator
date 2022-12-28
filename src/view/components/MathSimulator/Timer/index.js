@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './style.css';
 import { connect } from 'react-redux';
-import { endTimerAction, startTimerAction, negativeResultAction, bestResultAction  } from '../../../../redux-state/main/actions';
+import { endTimerAction, negativeResultAction, bestResultAction  } from '../../../../redux-state/main/actions';
 
 const mapStateToProps = (state, ownProps) => ({
   score: state.main.score,
@@ -10,12 +10,12 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = ({
   endTimerAction,
-  startTimerAction,
+  // startTimerAction,
   negativeResultAction,
   bestResultAction,
 });
 
-const Timer = ({ endTimerAction, startTimerAction, negativeResultAction, bestResultAction, score, username }) => {
+const Timer = ({ endTimerAction, negativeResultAction, bestResultAction, score, username }) => {
   const [timeLeft, setTimeLeft] = useState(20);
   const [min, setMin] = useState (0);
   const [sec, setSec] = useState (0);
@@ -32,7 +32,7 @@ const Timer = ({ endTimerAction, startTimerAction, negativeResultAction, bestRes
   }
 
   useEffect(() => {
-    startTimerAction();
+    // startTimerAction();
       timer.current = setInterval(() => {
           setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
       }, 1000);

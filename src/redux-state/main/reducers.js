@@ -3,7 +3,6 @@ import { ACTION_TYPES as MAIN_ACTION_TYPES } from "./constants";
 
 
 export const defaultState = {
-    header: '',
     // isText: true,
     isOperation: false,
     isRight: false,
@@ -17,8 +16,9 @@ export const defaultState = {
     isTable: false,
     timerIsStart: false,
     timeIsOver: false,
-    arr: [],
-    operation: null,
+    numbers: [],
+    operationMark: '',
+    // operation: null,
     score: 0,
     bestScore: false,
 }
@@ -30,11 +30,11 @@ const operationsReducer = (state = defaultState, action) => {
         case MAIN_ACTION_TYPES.OPERATION: {
             return {
                 ...state,
-                    header: payload.header,
                     isOperation: true,
                     // isText: false,
-                    arr: payload.arr,
-                    operation: payload.operation,
+                    numbers: payload.numbers,
+                    operationMark: payload.operationMark,
+                    // operation: payload.operation,
                     isQuiz: false,
                     quizIsStart: false,
                     isTable: false,
@@ -49,7 +49,7 @@ const operationsReducer = (state = defaultState, action) => {
         case MAIN_ACTION_TYPES.NEXT_OPERATION: {
             return {
                 ...state,
-                arr: payload.arr,
+                numbers: payload.numbers,
                 isRight: false,
                 comment: null,
                 result: '',
@@ -91,10 +91,10 @@ const operationsReducer = (state = defaultState, action) => {
         case MAIN_ACTION_TYPES.QUIZ: {
             return {
                 ...state,
-                header: payload.header,
                 isOperation: true,
                 isText: false,
-                arr: payload.arr,
+                numbers: payload.numbers,
+                operationMark: payload.operationMark,
                 isQuiz: true,
                 isTable: false,
             }
@@ -116,7 +116,8 @@ const operationsReducer = (state = defaultState, action) => {
                 isWrong: false,
                 result: '',
                 score: payload.score,
-                arr: payload.arr,
+                numbers: payload.numbers,
+                operationMark: payload.operationMark,
             }
         }
         case MAIN_ACTION_TYPES.WRONG_QUIZ: {
@@ -125,12 +126,12 @@ const operationsReducer = (state = defaultState, action) => {
                 isWrong: true,
             }
         }
-        case MAIN_ACTION_TYPES.START_TIMER: {
-            return {
-                ...state,
-                timerIsStart: true,
-            }
-        }
+        // case MAIN_ACTION_TYPES.START_TIMER: {
+        //     return {
+        //         ...state,
+        //         timerIsStart: true,
+        //     }
+        // }
         case MAIN_ACTION_TYPES.END_TIMER: {
             return {
                 ...state,
@@ -155,7 +156,6 @@ const operationsReducer = (state = defaultState, action) => {
         case MAIN_ACTION_TYPES.RESULTS: {
             return {
                 ...state,
-                header: payload.header,
                 // isText: false,
                 isOperation: false,
                 isWrong: false,

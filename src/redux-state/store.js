@@ -32,7 +32,6 @@ const store = createStore(
         },
         main:
         {
-            header: 'How to start?',
             isOperation: false,
             isRight: false,
             isWrong: false,
@@ -45,7 +44,6 @@ const store = createStore(
             isTable: false,
             timerIsStart: false,
             timeIsOver: false,
-            arr: [],
             operation: null,
             score: 0,
             bestScore: false,

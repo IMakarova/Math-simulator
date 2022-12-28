@@ -5,9 +5,8 @@ import { connect } from 'react-redux';
 import { quizAction, resultsAction, operationAction } from '../../../../redux-state/main/actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  arr: state.main.arr,
-  header: state.main.header,
-  operation: state.main.operation,
+  numbers: state.main.numbers,
+  // operation: state.main.operation,
 });
 
 const mapDispatchToProps = ({
@@ -23,44 +22,47 @@ const SidebarButtons = ({ operationAction, quizAction, resultsAction }) => {
     const operation = location.pathname.replace('/', '');
     switch(operation) {
       case 'quiz': {
-        return quizAction(mixedOperation(), operation);
+        const operationArr = mixedOperation();
+        return quizAction(operationArr, operationArr[3]);
       }
       case 'best-results': {
-        return resultsAction(operation.replace('-', ' '));
+        return resultsAction();
       }
       case 'addition': {
-        return operationAction(add(), operation, operation);
+        console.log('additionCase', add());
+        return operationAction(add(), '+');
       }
       case 'substraction': {
-        return operationAction(sub(), operation, operation);
+        return operationAction(sub(), '-');
       }
       case 'multiplication': {
-        return operationAction(mul(), operation, operation);
+        return operationAction(mul(), '*');
       }
       case 'division': {
-        return operationAction(div(), operation, operation);
+        return operationAction(div(), '/');
       }
     }
   }, [])
 
   const additionHandler = (e) => {
-    operationAction(add(), e.target.textContent.toLowerCase(), e.target.textContent);
+    operationAction(add(), '+');
     console.log('add');
   };
   const substractionHandler = (e) => {
-    operationAction(sub(), e.target.textContent.toLowerCase(), e.target.textContent);
+    operationAction(sub(), '-');
   };
   const multiplicationHandler = (e) => {
-    operationAction(mul(), e.target.textContent.toLowerCase(), e.target.textContent);
+    operationAction(mul(), '*');
   };
   const divisionHandler = (e) => {
-    operationAction(div(), e.target.textContent.toLowerCase(), e.target.textContent);
+    operationAction(div(), '/');
   };
   const quizHandler = (e) => {
-    quizAction(mixedOperation(), e.target.textContent);
+    const operationArr = mixedOperation();
+    quizAction(operationArr, operationArr[3]);
   };
   const resultsHandler = (e) => {
-    resultsAction(e.target.textContent);
+    resultsAction();
   };
 
   const sidebarButtons = [

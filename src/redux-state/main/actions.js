@@ -1,16 +1,16 @@
 import { ACTION_TYPES as MAIN_ACTION_TYPES } from './constants';
 
-export const operationAction = (arr, operation, header) => (dispatch, getState) => {
+export const operationAction = (numbers, operationMark) => (dispatch, getState) => {
     dispatch({ 
       type: MAIN_ACTION_TYPES.OPERATION,
-      payload: { arr, operation, header }
+      payload: { numbers, operationMark }
      })
 };
 
-export const nextOperationAction = (arr) => (dispatch, getState) => {
+export const nextOperationAction = (numbers) => (dispatch, getState) => {
     dispatch({ 
       type: MAIN_ACTION_TYPES.NEXT_OPERATION, 
-      payload: { arr }
+      payload: { numbers }
     })
   };
 
@@ -33,10 +33,10 @@ export const showAnswerAction = (comment) => (dispatch, getState) => {
   })
 };
 
-export const quizAction = (arr, header ) => (dispatch, getState) => {
+export const quizAction = (numbers, operationMark) => (dispatch, getState) => {
   dispatch({ 
     type: MAIN_ACTION_TYPES.QUIZ, 
-    payload: { arr, header }
+    payload: { numbers, operationMark }
   })
 };
 
@@ -44,10 +44,10 @@ export const startQuizAction = () => (dispatch, getState) => {
   dispatch({ type: MAIN_ACTION_TYPES.START_QUIZ })
 };
 
-export const nextQuizAction = (score, arr) => (dispatch, getState) => {
+export const nextQuizAction = (score, numbers, operationMark) => (dispatch, getState) => {
   dispatch({ 
     type: MAIN_ACTION_TYPES.NEXT_QUIZ, 
-    payload: { score, arr }
+    payload: { score, numbers, operationMark }
   })
 };
 
@@ -55,9 +55,9 @@ export const wrongQuizAction = () => (dispatch, getState) => {
   dispatch({ type: MAIN_ACTION_TYPES.WRONG_QUIZ })
 };
 
-export const startTimerAction = () => (dispatch, getState) => {
-  dispatch({ type: MAIN_ACTION_TYPES.START_TIMER })
-};
+// export const startTimerAction = () => (dispatch, getState) => {
+//   dispatch({ type: MAIN_ACTION_TYPES.START_TIMER })
+// };
 
 export const endTimerAction = () => (dispatch, getState) => {
   dispatch({ type: MAIN_ACTION_TYPES.END_TIMER })
@@ -71,17 +71,14 @@ export const negativeResultAction = () => (dispatch, getState) => {
   dispatch({ type: MAIN_ACTION_TYPES.NEGATIVE_RESULT })
 };
 
-export const resultsAction = (header) => (dispatch, getState) => {
-  dispatch({ 
-    type: MAIN_ACTION_TYPES.RESULTS, 
-    payload: { header }
-  })
+export const resultsAction = () => (dispatch, getState) => {
+  dispatch({ type: MAIN_ACTION_TYPES.RESULTS })
 };
 
-export const getResultAction = (header, arr) => (dispatch, getState) => {
+export const getResultAction = (result) => (dispatch, getState) => {
   dispatch({ 
     type: MAIN_ACTION_TYPES.GET_RESULT, 
-    payload: { header, arr }
+    payload: { result }
   })
 };
 

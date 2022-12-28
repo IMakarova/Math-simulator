@@ -5,18 +5,14 @@ import Quiz from '../Quiz';
 import Operation from '../Operation';
 import BestResults from '../BestResults';
 import Confetti from '../Confetti';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
-const mapStateToProps = (state, ownProps) => ({
-  header: state.main.header,
-});
-
-const Main = ({ header }) => {
+const Main = () => {
   const location = useLocation(); 
 
     return (
         <div id="main">
-          <h2>{ location.pathname === '/' ? 'How to start?' : header }</h2>
+          <h2>{ location.pathname === '/' ? 'How to start?' : location.pathname.replace('/', '').replace('-', ' ') }</h2>
             <Switch>
               <Route path='/' exact>
                 <div id="start-text"><p>Choose preferable math operation from the list on the left to start practicing your skills.</p></div>
@@ -40,4 +36,4 @@ const Main = ({ header }) => {
     );
 }
 
-export default connect(mapStateToProps)(Main);
+export default Main;
