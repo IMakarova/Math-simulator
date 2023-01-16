@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import './style.css';
 import { connect } from 'react-redux';
 import { showAnswerAction, nullAnswerAction, wrongAnswerAction } from '../../../../redux-state/main/actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  numbers: state.main.numbers,
+  operationNumbers: state?.main?.operationNumbers,
 });
 
 const mapDispatchToProps = ({
@@ -13,14 +13,13 @@ const mapDispatchToProps = ({
   wrongAnswerAction
 });
 
-const Answer = ({ showAnswerAction, nullAnswerAction, wrongAnswerAction, numbers }) => {
+const Answer = ({ showAnswerAction, nullAnswerAction, wrongAnswerAction, operationNumbers }) => {
     const [id, setId] = useState('show-answer');
     const [text, setText] = useState('Show answer');
     const showAnswerClick = (e) => {
         setId('hide-answer');
         setText('Hide answer');
-        console.log(typeof numbers[2] === 'number')
-        showAnswerAction(numbers[2]);
+        showAnswerAction(operationNumbers[2]);
     }
 
     const hideAnswerClick = (e) => {

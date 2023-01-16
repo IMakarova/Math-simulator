@@ -1,22 +1,21 @@
-import React, { useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import LoginLogout from '../LoginLogout';
 import Timer from '../Timer';
 import { mixedOperation } from '../Operations';
 import './style.css';
-import Confetti from '../Confetti';
 import { connect } from 'react-redux';
 import { startQuizAction, nextQuizAction, wrongQuizAction, getResultAction } from '../../../../redux-state/main/actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  arr: state.main.arr,
-  score: state.main.score,
-  result: state.main.result,
-  timeIsOver: state.main.timeIsOver,
-  isWrong: state.main.isWrong,
-  quizIsStart: state.main.quizIsStart,
-  isLogin: state.auth.isLogin,
-  bestScore: state.main.bestScore,
-  // children: ownProps.children
+  operationNumbers: state?.main?.operationNumbers,
+  score: state?.main?.score,
+  result: state?.main?.result,
+  timeIsOver: state?.main?.timeIsOver,
+  isWrong: state?.main?.isWrong,
+  quizIsStart: state?.main?.quizIsStart,
+  isLogin: state?.auth?.isLogin,
+  bestScore: state?.main?.bestScore,
+  operationMark: state?.main?.operationMark
 });
 
 const mapDispatchToProps = ({
@@ -26,27 +25,29 @@ const mapDispatchToProps = ({
   getResultAction,
 });
 
-const Quiz = ({ startQuizAction, nextQuizAction, wrongQuizAction, getResultAction, arr, score, result, isWrong, timeIsOver, quizIsStart, isLogin, bestScore, children }) => {
-  const [randomArr, setRandomArr] = useState([]);
-
-useEffect(() => {
-  console.log(isLogin)
-}, [])
+const Quiz = ({ startQuizAction, nextQuizAction, wrongQuizAction, getResultAction, operationNumbers, 
+  score, result, isWrong, timeIsOver, quizIsStart, isLogin, bestScore, operationMark, children }) => {
+  const [randomOperation, setRandomOperation] = useState([]);
+  const [randomOperationMark, setRandomOperationMark] = useState([]);
 
   const formula = () => {
-    return `${randomArr[0]} ${randomArr[3]} ${randomArr[1]} =`;
+
+    return `${randomOperation[0]} ${randomOperationMark} ${randomOperation[1]} =`;
   }
 
     const startClick = (e) => {    
       startQuizAction();
-      setRandomArr(arr[Math.floor(Math.random() * arr.length)]);
+      setRandomOperation(operationNumbers[Math.floor(Math.random() * operationNumbers.length)]);
+      setRandomOperationMark(operationMark);
   };
 
   const checkClick = (e) => {
     const userResult = document.getElementById('result').value;
-    if (Number(userResult) === randomArr[2]) {
-      setRandomArr(arr[Math.floor(Math.random() * arr.length)]);
+    if (Number(userResult) === randomOperation[2]) {
       nextQuizAction(score + 2, mixedOperation());
+      setRandomOperation(operationNumbers[Math.floor(Math.random() * operationNumbers.length)]);
+      console.log(randomOperation);
+      setRandomOperationMark(randomOperation[3]);
     } 
     else {
       wrongQuizAction();
@@ -58,7 +59,7 @@ const enterClick = (e) => {
 }
 
 const skipClick = (e) => {
-  setRandomArr(arr[Math.floor(Math.random() * arr.length)]);
+  setRandomOperation(operationNumbers[Math.floor(Math.random() * operationNumbers.length)]);
   nextQuizAction(score - 1, mixedOperation());
 }
 
@@ -91,7 +92,7 @@ const setResult = (event) => {
             }
           </>
         <>{!timeIsOver &&
-            <>{!quizIsStart && <><p>You will have 3 minutes to solve as much math problems as you can.</p>
+            <>{!quizIsStart && <><p>You will have 1,5 minutes to solve as much math problems as you can.</p>
               <p>Type your answer and press "check" button.</p>
               <p>If it is right, you'll immediatly get next problem.</p>
               <p>If wrong - you may try another answer as many times as you want or skip the problem.</p>

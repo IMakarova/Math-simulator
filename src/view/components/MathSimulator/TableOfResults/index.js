@@ -28,14 +28,14 @@ return sortedTable;
 
 
 const tableOfResults = useMemo(() => {
-  const sortedTableTopTen = sortTable().slice(0, 5);
+  const sortedTableTopTen = sortTable().slice(0, 10);
   return sortedTableTopTen;
 }, [username])
 
         return (
           <>
           {tableOfResults.map(([user, score]) => (
-              <div id={user} className={`row ${user === username ? 'current' : ''}`}>
+              <div key={user} className={`row ${user === username ? 'current' : ''}`}>
                 <div className='username'>{user}</div><div>{score}</div>
               </div>
           )

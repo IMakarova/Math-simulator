@@ -28,7 +28,7 @@ const LoginModal = ({ loginSuccessAction, logoutAction, isLogin, username, src }
     const url = 'https://robohash.org/' + enteredUsername + '.png?set=set4';
     const urlString = JSON.stringify(url);
     const urlWithoutQuotes = urlString.replaceAll('"', '');
-    console.log(urlString, urlWithoutQuotes)
+    // console.log(urlString, urlWithoutQuotes)
     return urlWithoutQuotes;
   };
 
@@ -47,7 +47,7 @@ const LoginModal = ({ loginSuccessAction, logoutAction, isLogin, username, src }
       setUsernameClass('');
       setEnteredPassword('');
       setEnteredUsername('');
-      console.log(enteredUsername, generateSrc());
+      // console.log(enteredUsername, generateSrc());
       loginSuccessAction(enteredUsername, generateSrc());
     }
   };

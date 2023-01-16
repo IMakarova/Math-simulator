@@ -43,7 +43,7 @@ const authReducer = (state = defaultState, action) => {
             }
         }
         case LOGIN_ACTION_TYPES.LOGIN_SUCCESS: {
-            console.log(payload);
+            // console.log(payload);
             return {
                 // ...state,
                 isLogin: true,

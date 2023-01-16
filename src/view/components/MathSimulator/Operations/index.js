@@ -1,4 +1,4 @@
-const maxNum = 100;
+const maxNum = 1000;
 
 export const mixedOperation = () => {
   const mix = [];

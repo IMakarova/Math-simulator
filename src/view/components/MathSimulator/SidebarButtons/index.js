@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { quizAction, resultsAction, operationAction } from '../../../../redux-state/main/actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  numbers: state.main.numbers,
+  // operationNumbers: state.main.operationNumbers,
   // operation: state.main.operation,
 });
 
@@ -23,13 +23,13 @@ const SidebarButtons = ({ operationAction, quizAction, resultsAction }) => {
     switch(operation) {
       case 'quiz': {
         const operationArr = mixedOperation();
+        console.log(operationArr)
         return quizAction(operationArr, operationArr[3]);
       }
       case 'best-results': {
         return resultsAction();
       }
       case 'addition': {
-        console.log('additionCase', add());
         return operationAction(add(), '+');
       }
       case 'substraction': {
@@ -46,7 +46,6 @@ const SidebarButtons = ({ operationAction, quizAction, resultsAction }) => {
 
   const additionHandler = (e) => {
     operationAction(add(), '+');
-    console.log('add');
   };
   const substractionHandler = (e) => {
     operationAction(sub(), '-');

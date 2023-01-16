@@ -1,16 +1,16 @@
 import { ACTION_TYPES as MAIN_ACTION_TYPES } from './constants';
 
-export const operationAction = (numbers, operationMark) => (dispatch, getState) => {
+export const operationAction = (operationNumbers, operationMark) => (dispatch, getState) => {
     dispatch({ 
       type: MAIN_ACTION_TYPES.OPERATION,
-      payload: { numbers, operationMark }
+      payload: { operationNumbers, operationMark }
      })
 };
 
-export const nextOperationAction = (numbers) => (dispatch, getState) => {
+export const nextOperationAction = (operationNumbers) => (dispatch, getState) => {
     dispatch({ 
       type: MAIN_ACTION_TYPES.NEXT_OPERATION, 
-      payload: { numbers }
+      payload: { operationNumbers }
     })
   };
 
@@ -33,10 +33,10 @@ export const showAnswerAction = (comment) => (dispatch, getState) => {
   })
 };
 
-export const quizAction = (numbers, operationMark) => (dispatch, getState) => {
+export const quizAction = (operationNumbers, operationMark) => (dispatch, getState) => {
   dispatch({ 
     type: MAIN_ACTION_TYPES.QUIZ, 
-    payload: { numbers, operationMark }
+    payload: { operationNumbers, operationMark }
   })
 };
 
@@ -44,20 +44,16 @@ export const startQuizAction = () => (dispatch, getState) => {
   dispatch({ type: MAIN_ACTION_TYPES.START_QUIZ })
 };
 
-export const nextQuizAction = (score, numbers, operationMark) => (dispatch, getState) => {
+export const nextQuizAction = (score, operationNumbers, operationMark) => (dispatch, getState) => {
   dispatch({ 
     type: MAIN_ACTION_TYPES.NEXT_QUIZ, 
-    payload: { score, numbers, operationMark }
+    payload: { score, operationNumbers, operationMark }
   })
 };
 
 export const wrongQuizAction = () => (dispatch, getState) => {
   dispatch({ type: MAIN_ACTION_TYPES.WRONG_QUIZ })
 };
-
-// export const startTimerAction = () => (dispatch, getState) => {
-//   dispatch({ type: MAIN_ACTION_TYPES.START_TIMER })
-// };
 
 export const endTimerAction = () => (dispatch, getState) => {
   dispatch({ type: MAIN_ACTION_TYPES.END_TIMER })

@@ -32,6 +32,8 @@ const store = createStore(
         },
         main:
         {
+            operationNumbers: [],
+            operationMark: '',
             isOperation: false,
             isRight: false,
             isWrong: false,

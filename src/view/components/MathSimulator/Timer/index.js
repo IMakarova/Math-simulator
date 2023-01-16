@@ -16,7 +16,7 @@ const mapDispatchToProps = ({
 });
 
 const Timer = ({ endTimerAction, negativeResultAction, bestResultAction, score, username }) => {
-  const [timeLeft, setTimeLeft] = useState(20);
+  const [timeLeft, setTimeLeft] = useState(90);
   const [min, setMin] = useState (0);
   const [sec, setSec] = useState (0);
   const timer = useRef(null);
@@ -43,10 +43,10 @@ const Timer = ({ endTimerAction, negativeResultAction, bestResultAction, score, 
     timerDisplay(timeLeft);
       if(!timeLeft && timer && timer.current){
         endTimerAction();
-          console.log('endTimerAction')
+          // console.log('endTimerAction')
           if(score < 0) {
             negativeResultAction();
-            console.log('negativeResultAction')
+            // console.log('negativeResultAction')
           }
 
         let currentBestResult

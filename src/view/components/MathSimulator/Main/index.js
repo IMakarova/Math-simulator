@@ -9,7 +9,6 @@ import Confetti from '../Confetti';
 
 const Main = () => {
   const location = useLocation(); 
-
     return (
         <div id="main">
           <h2>{ location.pathname === '/' ? 'How to start?' : location.pathname.replace('/', '').replace('-', ' ') }</h2>

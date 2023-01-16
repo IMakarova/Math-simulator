@@ -16,7 +16,7 @@ export const defaultState = {
     isTable: false,
     timerIsStart: false,
     timeIsOver: false,
-    numbers: [],
+    operationNumbers: [],
     operationMark: '',
     // operation: null,
     score: 0,
@@ -32,7 +32,7 @@ const operationsReducer = (state = defaultState, action) => {
                 ...state,
                     isOperation: true,
                     // isText: false,
-                    numbers: payload.numbers,
+                    operationNumbers: payload.operationNumbers,
                     operationMark: payload.operationMark,
                     // operation: payload.operation,
                     isQuiz: false,
@@ -49,7 +49,7 @@ const operationsReducer = (state = defaultState, action) => {
         case MAIN_ACTION_TYPES.NEXT_OPERATION: {
             return {
                 ...state,
-                numbers: payload.numbers,
+                operationNumbers: payload.operationNumbers,
                 isRight: false,
                 comment: null,
                 result: '',
@@ -93,7 +93,7 @@ const operationsReducer = (state = defaultState, action) => {
                 ...state,
                 isOperation: true,
                 isText: false,
-                numbers: payload.numbers,
+                operationNumbers: payload.operationNumbers,
                 operationMark: payload.operationMark,
                 isQuiz: true,
                 isTable: false,
@@ -116,7 +116,7 @@ const operationsReducer = (state = defaultState, action) => {
                 isWrong: false,
                 result: '',
                 score: payload.score,
-                numbers: payload.numbers,
+                operationNumbers: payload.operationNumbers,
                 operationMark: payload.operationMark,
             }
         }
@@ -161,6 +161,7 @@ const operationsReducer = (state = defaultState, action) => {
                 isWrong: false,
                 isQuiz: false,
                 quizIsStart: false,
+                timeIsOver: false,
                 isTable: true,
             }
         }

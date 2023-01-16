@@ -22,10 +22,6 @@ const mapStateToProps = (state, ownProps) => ({
 
 const Header = ({ isLogin, isLoginModal }) => {
   const location = useLocation();
-console.log(location.pathname)
-  // const homeClick = (e) => {
-  //   // startPageAction();
-  // };
 
   return (
     <div id="header">

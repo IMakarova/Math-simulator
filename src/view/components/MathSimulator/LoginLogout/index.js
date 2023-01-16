@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
 const LoginLogout = ({ isLogin, showLoginModalAction, logoutAction }) => {
 
   const loginHandler = (event) => {
-    console.log(store)
+    // console.log(store)
     showLoginModalAction();
   };
 
