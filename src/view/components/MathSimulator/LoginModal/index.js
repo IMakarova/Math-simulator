@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './style.css';
-// import AuthContext from '../../../../context/auth-context';
 import { connect } from 'react-redux';
 import { loginSuccessAction, logoutAction } from '../../../../redux-state/auth/actions';
-// import store from '../../../../redux-state/store';
 
 const mapStateToProps = (state, ownProps) => ({
-  isLogin: state.auth.isLogin,
-  username: state.auth.username,
-  isLoginModal: state.auth.isLoginModal,
-  src: state.auth.src
+  isLogin: state?.auth?.isLogin,
+  username: state?.auth?.username,
+  isLoginModal: state?.auth?.isLoginModal,
+  src: state?.auth?.src
 });
 
 const mapDispatchToProps = ({
@@ -17,10 +15,9 @@ const mapDispatchToProps = ({
   logoutAction
 });
 
-
 const LoginModal = ({ loginSuccessAction, logoutAction, isLogin, username, src }) => {
   const [enteredUsername, setEnteredUsername] = useState('');
-  const [enteredPassword, setEnteredPassword] = useState('');
+  // const [enteredPassword, setEnteredPassword] = useState('');
   const [usernameClass, setUsernameClass] = useState('');
   const [usernamePlaceholder, setUsernamePlaceholder] = useState('');
 
@@ -28,9 +25,8 @@ const LoginModal = ({ loginSuccessAction, logoutAction, isLogin, username, src }
     const url = 'https://robohash.org/' + enteredUsername + '.png?set=set4';
     const urlString = JSON.stringify(url);
     const urlWithoutQuotes = urlString.replaceAll('"', '');
-    // console.log(urlString, urlWithoutQuotes)
     return urlWithoutQuotes;
-  };
+  }
 
   const userNameChangeHandler = (event) => {
     setUsernameClass('');
@@ -45,10 +41,12 @@ const LoginModal = ({ loginSuccessAction, logoutAction, isLogin, username, src }
       setUsernamePlaceholder('enter your username');
     } else {
       setUsernameClass('');
-      setEnteredPassword('');
+      // setEnteredPassword('');
       setEnteredUsername('');
-      // console.log(enteredUsername, generateSrc());
       loginSuccessAction(enteredUsername, generateSrc());
+      const loginInfo = { [enteredUsername]: generateSrc() };
+      localStorage.setItem('loginInfo', JSON.stringify(loginInfo));
+      // console.log(localStorage);
     }
   };
 
@@ -56,16 +54,10 @@ const LoginModal = ({ loginSuccessAction, logoutAction, isLogin, username, src }
     logoutAction();
   };
 
-// useEffect(() => {
-//   console.log(isLogin)
-// }, [])
-
   return (
     <div className="login-modal">
       <div id="modal-window">
-        <button id="close" onClick={closeClick}>
-          &#x2715;
-        </button>
+        <button id="close" onClick={closeClick}>&#x2715;</button>
         <form onSubmit={loginClick}>
           <div id="modal-form">
             <label>Username</label>

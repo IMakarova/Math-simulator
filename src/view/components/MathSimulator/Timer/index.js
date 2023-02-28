@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './style.css';
 import { connect } from 'react-redux';
-import { endTimerAction, negativeResultAction, bestResultAction  } from '../../../../redux-state/main/actions';
+import { endTimerAction, negativeResultAction, bestResultAction  } from '../../../../redux-state/quiz/actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  score: state.main.score,
-  username: state.auth.username,
+  score: state?.quiz?.score,
+  username: state?.auth?.username,
 });
 
 const mapDispatchToProps = ({
   endTimerAction,
-  // startTimerAction,
   negativeResultAction,
   bestResultAction,
 });
@@ -32,7 +31,6 @@ const Timer = ({ endTimerAction, negativeResultAction, bestResultAction, score, 
   }
 
   useEffect(() => {
-    // startTimerAction();
       timer.current = setInterval(() => {
           setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
       }, 1000);
@@ -43,22 +41,24 @@ const Timer = ({ endTimerAction, negativeResultAction, bestResultAction, score, 
     timerDisplay(timeLeft);
       if(!timeLeft && timer && timer.current){
         endTimerAction();
-          // console.log('endTimerAction')
           if(score < 0) {
             negativeResultAction();
-            // console.log('negativeResultAction')
           }
 
-        let currentBestResult
+        let currentBestResult;
+        let newBestResults;
         try {
           currentBestResult = JSON.parse(localStorage.getItem('bestResults'));
         } catch (e) {}
-
+        // console.log(currentBestResult[username], score);
         if(currentBestResult && currentBestResult[username] && score > currentBestResult[username]) {
           bestResultAction();
+          newBestResults = { ...currentBestResult, [username]: score };
+        } else if (currentBestResult && currentBestResult[username] && score <= currentBestResult[username]) {
+          newBestResults = { ...currentBestResult};
+        } else {
+          newBestResults = { ...currentBestResult, [username]: score > 0 ? score : 0 };
         }
-
-        const newBestResults = { ...currentBestResult, [username]: score > 0 ? score : 0 };
         localStorage.setItem('bestResults', JSON.stringify(newBestResults));
       }
   }, [timeLeft])

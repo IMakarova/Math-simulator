@@ -1,19 +1,20 @@
-import React from 'react';
 import { add, sub, mul, div } from '../Operations';
 import { useLocation } from 'react-router-dom';
 import Answer from '../Answer';
 import { connect } from 'react-redux';
-import { getResultAction, rightAnswerAction, nullAnswerAction, wrongAnswerAction, nextOperationAction } from '../../../../redux-state/main/actions';
+import { getResultAction, nextOperationAction } from '../../../../redux-state/operations/actions';
+import { rightAnswerAction, nullAnswerAction, wrongAnswerAction, cleanOutAction } from '../../../../redux-state/answer/actions';
+import { useEffect } from 'react';
 
 const mapStateToProps = (state, ownProps) => ({
-  operationNumbers: state?.main?.operationNumbers,
-  operationMark: state?.main?.operationMark,
-  result: state?.main?.result,
-  isRight: state?.main?.isRight,
-  isWrong: state?.main?.isWrong,
-  readOnly: state?.main?.readOnly,
-  button: state?.main?.button,
-  comment: state?.main?.comment,
+  operationNumbers: state?.operations?.operationNumbers,
+  operationMark: state?.operations?.operationMark,
+  result: state?.operations?.result,
+  isRight: state?.answer?.isRight,
+  isWrong: state?.answer?.isWrong,
+  readOnly: state?.answer?.readOnly,
+  button: state?.answer?.button,
+  comment: state?.answer?.comment,
 });
 
 const mapDispatchToProps = {
@@ -22,12 +23,22 @@ const mapDispatchToProps = {
   nullAnswerAction,
   wrongAnswerAction,
   nextOperationAction,
+  cleanOutAction,
 };
 
-const Operation = ({ getResultAction, rightAnswerAction, nullAnswerAction, wrongAnswerAction, nextOperationAction,
+const Operation = ({ getResultAction, rightAnswerAction, nullAnswerAction, wrongAnswerAction, nextOperationAction, cleanOutAction, 
   operationNumbers, operationMark, result, isRight, isWrong, readOnly, button, comment }) => {
+    
   const formula = () => `${operationNumbers[0]} ${operationMark} ${operationNumbers[1]} =`;
   const location = useLocation();
+
+  useEffect(() => {
+    cleanOutAction();
+  }, [location])
+
+  useEffect(() => {
+    return cleanOutAction;
+  }, [])
 
   const checkClick = (e) => {
     const userResult = document.getElementById('result').value;
@@ -47,6 +58,7 @@ const Operation = ({ getResultAction, rightAnswerAction, nullAnswerAction, wrong
   };
 
   const nextClick = (e) => {
+    cleanOutAction();
     if (location.pathname === '/addition') {
       nextOperationAction(add());
     }

@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import './style.css';
 import SidebarButtons from '../SidebarButtons';
-// import { connect } from 'react-redux';
 
 class Sidebar extends PureComponent {
 

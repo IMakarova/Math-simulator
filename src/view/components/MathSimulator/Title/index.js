@@ -1,13 +1,10 @@
-import React from 'react';
 import './style.css';
 import { NavLink, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state, ownProps) => ({
-  // isText: state.main.isText,
-  homeClick: ownProps.homeClick
+  homeClick: ownProps?.homeClick
 });
-
 
 const Title = ({ homeClick }) => {
   const location = useLocation();

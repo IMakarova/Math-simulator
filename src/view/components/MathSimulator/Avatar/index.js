@@ -1,10 +1,9 @@
-import React from 'react';
 import './style.css';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state, ownProps) => ({
-  username: state.auth.username,
-  src: state.auth.src
+  username: state?.auth?.username,
+  src: state?.auth?.src
 });
 
 const Avatar = ({ username, src }) => {

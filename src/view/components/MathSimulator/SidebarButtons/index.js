@@ -2,33 +2,34 @@ import React, { useEffect } from 'react';
 import { add, sub, mul, div, mixedOperation } from '../Operations';
 import { NavLink, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { quizAction, resultsAction, operationAction } from '../../../../redux-state/main/actions';
-
-const mapStateToProps = (state, ownProps) => ({
-  // operationNumbers: state.main.operationNumbers,
-  // operation: state.main.operation,
-});
+import { operationAction } from '../../../../redux-state/operations/actions';
+import { quizAction } from '../../../../redux-state/quiz/actions';
+import { cleanOutAction } from '../../../../redux-state/answer/actions';
+// const mapStateToProps = (state, ownProps) => ({
+// });
 
 const mapDispatchToProps = ({
   quizAction,
-  resultsAction,
+  // resultsAction,
   operationAction,
+  cleanOutAction
 });
 
 
-const SidebarButtons = ({ operationAction, quizAction, resultsAction }) => {
+const SidebarButtons = ({ operationAction, quizAction, cleanOutAction }) => {
+  // cleanOutAction();
   const location = useLocation();
   useEffect(() => {
+    // cleanOutAction();
     const operation = location.pathname.replace('/', '');
     switch(operation) {
       case 'quiz': {
         const operationArr = mixedOperation();
-        console.log(operationArr)
-        return quizAction(operationArr, operationArr[3]);
+        return quizAction(operationArr);
       }
-      case 'best-results': {
-        return resultsAction();
-      }
+      // case 'best-results': {
+      //   return resultsAction();
+      // }
       case 'addition': {
         return operationAction(add(), '+');
       }
@@ -58,11 +59,12 @@ const SidebarButtons = ({ operationAction, quizAction, resultsAction }) => {
   };
   const quizHandler = (e) => {
     const operationArr = mixedOperation();
-    quizAction(operationArr, operationArr[3]);
+    quizAction(operationArr);
+
   };
-  const resultsHandler = (e) => {
-    resultsAction();
-  };
+  // const resultsHandler = (e) => {
+
+  // };
 
   const sidebarButtons = [
     {
@@ -87,7 +89,7 @@ const SidebarButtons = ({ operationAction, quizAction, resultsAction }) => {
     },
     {
       label: 'Best results',
-      handler: resultsHandler,
+      // handler: null,
     },
   ];
 
@@ -101,4 +103,4 @@ const SidebarButtons = ({ operationAction, quizAction, resultsAction }) => {
         });
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SidebarButtons);
+export default connect(null, mapDispatchToProps)(SidebarButtons);

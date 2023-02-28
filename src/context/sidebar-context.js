@@ -15,9 +15,9 @@ const SidebarContext = React.createContext({
 });
 
 const defaultState = {
-  headerState: 'How to start?',
-  isTextState: true,
-  isOperationState: false,
+  // headerState: 'How to start?',
+  // isTextState: true,
+  // isOperationState: false,
   isRightState: false,
   isWrongState: false,
   commentState: null,

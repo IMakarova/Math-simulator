@@ -9,7 +9,6 @@ export const loginSuccessAction = (username, src) => (dispatch, getState) => {
       type: LOGIN_ACTION_TYPES.LOGIN_SUCCESS, 
       payload: { username, src }
     })
-
   };
 
   export const logoutAction = () => (dispatch, getState) => {

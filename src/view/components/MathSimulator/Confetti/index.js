@@ -1,13 +1,13 @@
 // import { canvas-confetti } from 'canvas-confetti';
 
 import confetti from 'canvas-confetti';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 const Confetti = () => {
 
-useEffect(() => {
-    confetti()
-}, [])
+// useEffect(() => {
+//     confetti()
+// }, [])
 
   const count = 300;
   const defaults = {

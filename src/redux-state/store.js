@@ -30,23 +30,25 @@ const store = createStore(
             isLoginModal: false,
             src: '', 
         },
-        main:
+        operations:
         {
             operationNumbers: [],
             operationMark: '',
-            isOperation: false,
+        },
+        answer:
+        {
             isRight: false,
             isWrong: false,
             comment: null,
-            button: 'check',
-            result: '',
             readOnly: false,
-            isQuiz: false,
+            button: 'check',
+        },
+        quiz:
+        {
+            result: '',
             quizIsStart: false,
-            isTable: false,
-            timerIsStart: false,
             timeIsOver: false,
-            operation: null,
+            operationsMix: [],
             score: 0,
             bestScore: false,
         }

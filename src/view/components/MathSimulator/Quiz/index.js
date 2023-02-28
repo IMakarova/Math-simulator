@@ -1,21 +1,21 @@
-import React, { useState} from 'react';
+import React, { useEffect, useState} from 'react';
+import confetti from 'canvas-confetti';
 import LoginLogout from '../LoginLogout';
 import Timer from '../Timer';
 import { mixedOperation } from '../Operations';
 import './style.css';
 import { connect } from 'react-redux';
-import { startQuizAction, nextQuizAction, wrongQuizAction, getResultAction } from '../../../../redux-state/main/actions';
+import { startQuizAction, nextQuizAction, wrongQuizAction, getResultAction, quitQuizAction } from '../../../../redux-state/quiz/actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  operationNumbers: state?.main?.operationNumbers,
-  score: state?.main?.score,
-  result: state?.main?.result,
-  timeIsOver: state?.main?.timeIsOver,
-  isWrong: state?.main?.isWrong,
-  quizIsStart: state?.main?.quizIsStart,
+  operationsMix: state?.quiz?.operationsMix,
+  score: state?.quiz?.score,
+  result: state?.quiz?.result,
+  timeIsOver: state?.quiz?.timeIsOver,
+  isWrong: state?.quiz?.isWrong,
+  quizIsStart: state?.quiz?.quizIsStart,
   isLogin: state?.auth?.isLogin,
-  bestScore: state?.main?.bestScore,
-  operationMark: state?.main?.operationMark
+  bestScore: state?.quiz?.bestScore,
 });
 
 const mapDispatchToProps = ({
@@ -23,31 +23,70 @@ const mapDispatchToProps = ({
   nextQuizAction,
   wrongQuizAction,
   getResultAction,
+  quitQuizAction,
 });
 
-const Quiz = ({ startQuizAction, nextQuizAction, wrongQuizAction, getResultAction, operationNumbers, 
-  score, result, isWrong, timeIsOver, quizIsStart, isLogin, bestScore, operationMark, children }) => {
-  const [randomOperation, setRandomOperation] = useState([]);
-  const [randomOperationMark, setRandomOperationMark] = useState([]);
+const Quiz = ({ startQuizAction, nextQuizAction, wrongQuizAction, getResultAction, quitQuizAction,
+  operationsMix, score, result, isWrong, timeIsOver, quizIsStart, isLogin, bestScore, children }) => {
+  const [randomOperation, setRandomOperation] = useState(operationsMix[Math.floor(Math.random() * operationsMix.length)]);
+
+  useEffect(() => {
+    return quitQuizAction;
+  }, [])
+  
+const confettiFire = () => {
+  
+  const count = 300;
+  const defaults = {
+    origin: { y: 0.7 },
+  };
+
+  function fire(particleRatio, opts) {
+    confetti(
+      Object.assign({}, defaults, opts, {
+        particleCount: Math.floor(count * particleRatio),
+      })
+    );
+  }
+
+  fire(0.25, {
+    spread: 26,
+    startVelocity: 55,
+  });
+  fire(0.2, {
+    spread: 60,
+  });
+  fire(0.35, {
+    spread: 100,
+    decay: 0.91,
+    scalar: 0.8,
+  });
+  fire(0.1, {
+    spread: 120,
+    startVelocity: 25,
+    decay: 0.92,
+    scalar: 1.2,
+  });
+  fire(0.1, {
+    spread: 120,
+    startVelocity: 45,
+  });
+}
 
   const formula = () => {
-
-    return `${randomOperation[0]} ${randomOperationMark} ${randomOperation[1]} =`;
+    return `${randomOperation[0]} ${randomOperation[3]} ${randomOperation[1]} =`;
   }
 
     const startClick = (e) => {    
       startQuizAction();
-      setRandomOperation(operationNumbers[Math.floor(Math.random() * operationNumbers.length)]);
-      setRandomOperationMark(operationMark);
+      setRandomOperation(operationsMix[Math.floor(Math.random() * operationsMix.length)]);
   };
 
   const checkClick = (e) => {
     const userResult = document.getElementById('result').value;
     if (Number(userResult) === randomOperation[2]) {
       nextQuizAction(score + 2, mixedOperation());
-      setRandomOperation(operationNumbers[Math.floor(Math.random() * operationNumbers.length)]);
-      console.log(randomOperation);
-      setRandomOperationMark(randomOperation[3]);
+      setRandomOperation(operationsMix[Math.floor(Math.random() * operationsMix.length)]);
     } 
     else {
       wrongQuizAction();
@@ -59,7 +98,7 @@ const enterClick = (e) => {
 }
 
 const skipClick = (e) => {
-  setRandomOperation(operationNumbers[Math.floor(Math.random() * operationNumbers.length)]);
+  setRandomOperation(operationsMix[Math.floor(Math.random() * operationsMix.length)]);
   nextQuizAction(score - 1, mixedOperation());
 }
 
@@ -81,9 +120,9 @@ const setResult = (event) => {
               <>
                 <div id='quiz-end'><div>Your score is <span>{score >= 0 ? score : 0}</span>.</div>
                 {bestScore && 
-                <><div id='best'>Congratulations! This is your best result!</div>
+                <><div id='best'>Congratulations! This is your best result!</div>{confettiFire()}
                 {/* <Confetti /> */}
-                {children}
+                {/* {children} */}
                 </>}
                 <p>Do you want to try one more time?</p>
                 <button onClick={startClick}>Start</button>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './style.css';
 import { connect } from 'react-redux';
-import { showAnswerAction, nullAnswerAction, wrongAnswerAction } from '../../../../redux-state/main/actions';
+import { showAnswerAction, nullAnswerAction, wrongAnswerAction } from '../../../../redux-state/answer/actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  operationNumbers: state?.main?.operationNumbers,
+  operationNumbers: state?.operations?.operationNumbers,
 });
 
 const mapDispatchToProps = ({

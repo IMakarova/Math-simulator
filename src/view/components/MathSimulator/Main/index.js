@@ -1,16 +1,16 @@
-import React from 'react';
 import './style.css';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import Quiz from '../Quiz';
 import Operation from '../Operation';
 import BestResults from '../BestResults';
-import Confetti from '../Confetti';
-// import { connect } from 'react-redux';
+// import Confetti from '../Confetti';
 
 const Main = () => {
+console.log(localStorage)
   const location = useLocation(); 
     return (
         <div id="main">
+          {/* <Confetti /> */}
           <h2>{ location.pathname === '/' ? 'How to start?' : location.pathname.replace('/', '').replace('-', ' ') }</h2>
             <Switch>
               <Route path='/' exact>
@@ -21,7 +21,7 @@ const Main = () => {
             </Route>
               <Route path='/quiz'>
                 <Quiz>
-                  <Confetti />
+                  {/* <Confetti /> */}
                 </Quiz>
               </Route>
             <Route path='/best-results'>

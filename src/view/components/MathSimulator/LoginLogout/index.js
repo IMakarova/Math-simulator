@@ -1,41 +1,40 @@
-import React, { useEffect } from 'react';
 import './style.css';
-// import AuthContext from '../../../../context/auth-context';
 import { connect } from 'react-redux';
-import { showLoginModalAction, logoutAction } from '../../../../redux-state/auth/actions';
-// import { bindActionCreators } from 'redux';
-import store from '../../../../redux-state/store';
-// import { defaultState } from '../../../../redux-state/auth/reducers'
+import { showLoginModalAction, logoutAction, loginSuccessAction } from '../../../../redux-state/auth/actions';
+import { useEffect } from 'react';
 
 const mapStateToProps = (state, ownProps) => ({
-  isLogin: state.auth.isLogin,
+  isLogin: state?.auth?.isLogin,
 });
 
-// const mapDispatchToProps1 = (dispatch) => ({
-//   showLoginModalAction: () => dispatch(showLoginModalAction()),
-//   logoutAction: () => dispatch(logoutAction())
-// })
-
-// const mapDispatchToProps2 = (dispatch) => 
-// bindActionCreators({
-//   showLoginModalAction: showLoginModalAction,
-//   logoutAction: logoutAction
-// }, dispatch)
-
-const mapDispatchToProps = (dispatch) => ({
-  showLoginModalAction: () => dispatch(showLoginModalAction()),
-  logoutAction: () => dispatch(logoutAction())
+const mapDispatchToProps = 
+// (dispatch) => 
+({
+  // showLoginModalAction: () => dispatch(showLoginModalAction()),
+  // logoutAction: () => dispatch(logoutAction())
+  showLoginModalAction,
+  logoutAction,
+  loginSuccessAction
 });
 
-const LoginLogout = ({ isLogin, showLoginModalAction, logoutAction }) => {
+const LoginLogout = ({ isLogin, showLoginModalAction, logoutAction, loginSuccessAction }) => {
+
+  useEffect(() => {
+    if(localStorage.getItem('loginInfo')){
+    const loginInfo = Object.entries(JSON.parse(localStorage.getItem('loginInfo'))).flat();
+    console.log(Object.entries(JSON.parse(localStorage.getItem('loginInfo'))).flat());
+    loginSuccessAction(loginInfo[0], loginInfo[1]);
+    }
+  }, [])
 
   const loginHandler = (event) => {
-    // console.log(store)
     showLoginModalAction();
   };
 
   const logoutHandler = (event) => {
     logoutAction();
+    localStorage.removeItem('loginInfo');
+          // console.log(localStorage);
   };
 
     return (

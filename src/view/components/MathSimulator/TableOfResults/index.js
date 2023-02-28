@@ -1,14 +1,11 @@
-// import React, { useContext } from 'react';
 import { useMemo } from 'react';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state, ownProps) => ({
-    isLogin: state.auth.isLogin,
-    username: state.auth.username,
-    score: state.main.score,
+    username: state?.auth?.username
   });
 
-const TableOfResults = ({ isLogin, username, score }) => {
+const TableOfResults = ({ username }) => {
 
 const bestResults = useMemo(() => {
   let results;
@@ -40,7 +37,7 @@ const tableOfResults = useMemo(() => {
               </div>
           )
         )}
-                  {username && !tableOfResults.flat().includes(username) &&
+                  {username && !tableOfResults.flat().includes(username) && sortTable().flat().includes(username) &&
                   <div className='row outside'>
                     <div className='username'>{username}</div><div>{bestResults[username]}</div>
                     </div>
